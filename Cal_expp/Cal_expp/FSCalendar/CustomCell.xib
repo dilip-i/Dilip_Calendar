@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="_FSCalendarDefaultCellReuseIdentifier" id="B6O-xw-6Cb" customClass="FSCalendarCell">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2y-c0-09x">
+                        <rect key="frame" x="0.0" y="0.0" width="50" height="48"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWu-UL-spF">
+                        <rect key="frame" x="2" y="48" width="46" height="2"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="2" id="trt-Ux-pSE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Qcz-cr-m8K"/>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="kWu-UL-spF" secondAttribute="bottom" id="93r-Jp-hId"/>
+                <constraint firstItem="kWu-UL-spF" firstAttribute="top" secondItem="D2y-c0-09x" secondAttribute="bottom" id="EMy-v1-4ef"/>
+                <constraint firstItem="kWu-UL-spF" firstAttribute="leading" secondItem="B6O-xw-6Cb" secondAttribute="leading" constant="2" id="FaH-MV-4kf"/>
+                <constraint firstAttribute="trailing" secondItem="kWu-UL-spF" secondAttribute="trailing" constant="2" id="Iej-fW-3ki"/>
+                <constraint firstAttribute="trailing" secondItem="D2y-c0-09x" secondAttribute="trailing" id="cEr-g7-nsF"/>
+                <constraint firstItem="D2y-c0-09x" firstAttribute="leading" secondItem="B6O-xw-6Cb" secondAttribute="leading" id="naB-Kp-Wfy"/>
+                <constraint firstItem="D2y-c0-09x" firstAttribute="top" secondItem="B6O-xw-6Cb" secondAttribute="top" id="q3o-Ku-fTS"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Ybs-Xm-wjG"/>
+            <connections>
+                <outlet property="barView" destination="kWu-UL-spF" id="pG1-tS-jqd"/>
+                <outlet property="titleLabel" destination="D2y-c0-09x" id="Qn7-6v-TE4"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="_FSCalendarWeekNoCellReuseIdentifier" id="L43-5D-Y3g" customClass="FSCalendarWCell">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCG-IU-1Cr">
+                        <rect key="frame" x="0.0" y="0.0" width="50" height="48"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zfh-bU-7Zt">
+                        <rect key="frame" x="2" y="48" width="46" height="2"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="2" id="por-Wx-ra2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FI4-JM-eyF"/>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="OCG-IU-1Cr" firstAttribute="leading" secondItem="L43-5D-Y3g" secondAttribute="leading" id="CYJ-ec-bqt"/>
+                <constraint firstAttribute="bottom" secondItem="Zfh-bU-7Zt" secondAttribute="bottom" id="KJ4-5d-o6l"/>
+                <constraint firstItem="Zfh-bU-7Zt" firstAttribute="top" secondItem="OCG-IU-1Cr" secondAttribute="bottom" id="O3X-s6-dFc"/>
+                <constraint firstItem="OCG-IU-1Cr" firstAttribute="top" secondItem="L43-5D-Y3g" secondAttribute="top" id="Qnq-RJ-3L6"/>
+                <constraint firstItem="Zfh-bU-7Zt" firstAttribute="leading" secondItem="L43-5D-Y3g" secondAttribute="leading" constant="2" id="Xq4-oF-Y8j"/>
+                <constraint firstAttribute="trailing" secondItem="OCG-IU-1Cr" secondAttribute="trailing" id="e1a-F3-0BD"/>
+                <constraint firstAttribute="trailing" secondItem="Zfh-bU-7Zt" secondAttribute="trailing" constant="2" id="y6z-37-x8s"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="8Ya-jL-arI"/>
+            <connections>
+                <outlet property="barView" destination="Zfh-bU-7Zt" id="Y8x-op-SxB"/>
+                <outlet property="titleLabel" destination="OCG-IU-1Cr" id="xGX-ZX-hQI"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>
