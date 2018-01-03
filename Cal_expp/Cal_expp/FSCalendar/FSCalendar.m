@@ -520,7 +520,10 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     if(collectionView == self.wCollectionView){
         NSNumber *weekno = [self.calculator weeknoForIndexPath:indexPath fromPage:self.currentPage];
         FSCalendarWCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:FSCalendarWeekNoCellReuseIdentifier forIndexPath:indexPath];
+        cell.calendar = self;
         cell.titleLabel.text = [NSString stringWithFormat:@"%ld",(long)weekno.integerValue];
+        cell.progressBar = (arc4random_uniform(10))/10.0;
+        [cell configureAppearance];
         return cell;
     }
     
@@ -552,6 +555,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:FSCalendarDefaultCellReuseIdentifier forIndexPath:indexPath];
     }
     [self reloadDataForCell:cell atIndexPath:indexPath];
+    cell.progressBar = (arc4random_uniform(10))/10.0;
     return cell;
 }
 
@@ -949,10 +953,10 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     }]];
 }
 
-- (NSArray<FSCalendarCell *> *)visibleWeekNoCells
+- (NSArray<FSCalendarWCell *> *)visibleWeekNoCells
 {
     return [self.wCollectionView.visibleCells filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-        return [evaluatedObject isKindOfClass:[FSCalendarCell class]];
+        return [evaluatedObject isKindOfClass:[FSCalendarWCell class]];
     }]];
 }
 
@@ -1782,7 +1786,9 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 
 - (void)configureAppearance
 {
+//    NSLog(@"Count week cells %d normal cells %d",self.visibleCells.count,self.visibleWeekNoCells.count);
     [self.visibleCells makeObjectsPerformSelector:@selector(configureAppearance)];
+    [self.visibleWeekNoCells makeObjectsPerformSelector:@selector(configureAppearance)];
     [self.visibleStickyHeaders makeObjectsPerformSelector:@selector(configureAppearance)];
     [self.calendarHeaderView configureAppearance];
     [self.calendarWeekdayView configureAppearance];

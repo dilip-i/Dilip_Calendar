@@ -712,7 +712,7 @@
             }
         }
     }];
-    [self.calendar.visibleWeekNoCells enumerateObjectsUsingBlock:^(FSCalendarCell *cell, NSUInteger idx, BOOL *stop) {
+    [self.calendar.visibleWeekNoCells enumerateObjectsUsingBlock:^(FSCalendarWCell *cell, NSUInteger idx, BOOL *stop) {
         if (CGRectContainsPoint(self.wCollectionView.bounds, cell.center)) {
             BOOL shouldPerformAlpha = NO;
             NSIndexPath *indexPath = [self.wCollectionView indexPathForCell:cell];
@@ -750,7 +750,7 @@
             }
         }
     }];
-    [self.calendar.visibleWeekNoCells enumerateObjectsUsingBlock:^(FSCalendarCell *cell, NSUInteger idx, BOOL *stop) {
+    [self.calendar.visibleWeekNoCells enumerateObjectsUsingBlock:^(FSCalendarWCell *cell, NSUInteger idx, BOOL *stop) {
         if (CGRectContainsPoint(self.wCollectionView.bounds, cell.center)) {
             BOOL shouldPerformAlpha = NO;
             NSIndexPath *indexPath = [self.wCollectionView indexPathForCell:cell];

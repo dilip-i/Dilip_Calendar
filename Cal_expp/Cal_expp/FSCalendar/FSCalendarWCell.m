@@ -18,6 +18,8 @@
 @property (readonly, nonatomic) UIColor *colorForTitleLabel;
 @property (readonly, nonatomic) UIColor *colorForSubtitleLabel;
 @property (readonly, nonatomic) UIColor *colorForCellBorder;
+@property (readonly, nonatomic) UIColor *colorForWUnselectedBar;
+@property (readonly, nonatomic) UIColor *colorForWSelectedBar;
 @property (readonly, nonatomic) NSArray<UIColor *> *colorsForEvents;
 @property (readonly, nonatomic) CGFloat borderRadius;
 
@@ -125,7 +127,7 @@
     if (![textColor isEqual:_titleLabel.textColor]) {
         _titleLabel.textColor = textColor;
     }
-    UIFont *titleFont = self.calendar.appearance.titleFont;
+    UIFont *titleFont = self.calendar.appearance.weeknoFont;
     if (![titleFont isEqual:_titleLabel.font]) {
         _titleLabel.font = titleFont;
     }
@@ -157,6 +159,9 @@
         }
         
     }
+    
+    _barWUnselectedView.backgroundColor = self.colorForWUnselectedBar;
+    _barWSelectedView.backgroundColor = self.colorForWSelectedBar;
 }
 
 - (UIColor *)colorForCurrentStateInDictionary:(NSDictionary *)dictionary
@@ -212,6 +217,17 @@
     return _preferredBorderDefaultColor ?: _appearance.borderDefaultColor;
 }
 
+//Added by Dilip
+- (UIColor *)colorForWUnselectedBar
+{
+    return _preferredBarWUnselectedColor ?: _appearance.BarWUnselectedColor;
+}
+
+- (UIColor *)colorForWSelectedBar
+{
+    return _preferredBarWSelectedColor ?: _appearance.BarWSelectedColor;
+}
+
 - (CGFloat)borderRadius
 {
     return _preferredBorderRadius >= 0 ? _preferredBorderRadius : _appearance.borderRadius;
@@ -241,6 +257,18 @@ OFFSET_PROPERTY(preferredImageOffset, PreferredImageOffset, _appearance.imageOff
 OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOffset);
 
 #undef OFFSET_PROPERTY
+
+-(void)setProgressBar:(CGFloat)progressBar{
+    [self layoutIfNeeded];
+    CGFloat prg = _barWUnselectedView.frame.size.width * (1 - progressBar);
+    NSLog(@"Width = %f,Value = %f",_barWUnselectedView.frame.size.width,prg);
+//    int a = arc4random_uniform(10);
+//    if(a%2 == 0){
+//        _barWSelectedViewTrailConstraint.constant = prg;
+//    }else{
+        _barWSelectedViewTrailConstraint.constant = prg;
+//    }
+}
 
 - (void)setCalendar:(FSCalendar *)calendar
 {

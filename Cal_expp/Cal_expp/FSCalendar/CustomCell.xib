@@ -20,16 +20,26 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2y-c0-09x">
-                        <rect key="frame" x="0.0" y="0.0" width="50" height="48"/>
+                        <rect key="frame" x="0.0" y="0.0" width="50" height="47"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWu-UL-spF">
-                        <rect key="frame" x="2" y="48" width="46" height="2"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kWu-UL-spF">
+                        <rect key="frame" x="2" y="48" width="46" height="5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F7F-XC-j45">
+                                <rect key="frame" x="0.0" y="0.0" width="27" height="3"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="2" id="trt-Ux-pSE"/>
+                            <constraint firstItem="F7F-XC-j45" firstAttribute="leading" secondItem="kWu-UL-spF" secondAttribute="leading" id="3Jc-Ti-uvJ"/>
+                            <constraint firstAttribute="trailing" secondItem="F7F-XC-j45" secondAttribute="trailing" constant="19" id="AbK-wh-0bj"/>
+                            <constraint firstAttribute="bottom" secondItem="F7F-XC-j45" secondAttribute="bottom" id="S3E-Da-WMF"/>
+                            <constraint firstItem="F7F-XC-j45" firstAttribute="top" secondItem="kWu-UL-spF" secondAttribute="top" id="kul-1A-p0t"/>
+                            <constraint firstAttribute="height" constant="3" id="trt-Ux-pSE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Qcz-cr-m8K"/>
                     </view>
@@ -46,7 +56,9 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="Ybs-Xm-wjG"/>
             <connections>
-                <outlet property="barView" destination="kWu-UL-spF" id="pG1-tS-jqd"/>
+                <outlet property="barSelectedView" destination="F7F-XC-j45" id="11a-Ze-DE1"/>
+                <outlet property="barSelectedViewTrailConstraint" destination="AbK-wh-0bj" id="ON6-Au-RrO"/>
+                <outlet property="barUnselectedView" destination="kWu-UL-spF" id="BiV-wJ-8tU"/>
                 <outlet property="titleLabel" destination="D2y-c0-09x" id="Qn7-6v-TE4"/>
             </connections>
         </collectionViewCell>

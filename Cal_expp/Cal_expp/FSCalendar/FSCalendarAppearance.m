@@ -33,6 +33,7 @@
         _titleFont = [UIFont systemFontOfSize:FSCalendarStandardTitleTextSize];
         _subtitleFont = [UIFont systemFontOfSize:FSCalendarStandardSubtitleTextSize];
         _weekdayFont = [UIFont systemFontOfSize:FSCalendarStandardWeekdayTextSize];
+        _weeknoFont = [UIFont systemFontOfSize:FSCalendarStandardWeeknoTextSize];
         _headerTitleFont = [UIFont systemFontOfSize:FSCalendarStandardHeaderTextSize];
         
         _headerTitleColor = FSCalendarStandardTitleTextColor;
@@ -41,11 +42,15 @@
         _weekdayTextColor = FSCalendarStandardTitleTextColor;
         _caseOptions = FSCalendarCaseOptionsHeaderUsesDefaultCase|FSCalendarCaseOptionsWeekdayUsesDefaultCase;
         
-        _backgroundColors = [NSMutableDictionary dictionaryWithCapacity:5];
+        _backgroundColors = [NSMutableDictionary dictionaryWithCapacity:9];
         _backgroundColors[@(FSCalendarCellStateNormal)]      = [UIColor clearColor];
         _backgroundColors[@(FSCalendarCellStateSelected)]    = FSCalendarStandardSelectionColor;
         _backgroundColors[@(FSCalendarCellStateDisabled)]    = [UIColor clearColor];
         _backgroundColors[@(FSCalendarCellStatePlaceholder)] = [UIColor clearColor];
+        _backgroundColors[@(FSCalendarCellStateUnselectedBar)] = [UIColor lightGrayColor];
+        _backgroundColors[@(FSCalendarCellStateSelectedBar)] = [UIColor blueColor];
+        _backgroundColors[@(FSCalendarCellStateWUnselectedBar)] = [UIColor yellowColor];
+        _backgroundColors[@(FSCalendarCellStateWSelectedBar)] = [UIColor redColor];
         _backgroundColors[@(FSCalendarCellStateToday)]       = FSCalendarStandardTodayColor;
         
         _titleColors = [NSMutableDictionary dictionaryWithCapacity:5];
@@ -99,6 +104,13 @@
 {
     if (![_weekdayFont isEqual:weekdayFont]) {
         _weekdayFont = weekdayFont;
+        [self.calendar configureAppearance];
+    }
+}
+
+-(void)setWeeknoFont:(UIFont *)weeknoFont{
+    if (![_weeknoFont isEqual:weeknoFont]) {
+        _weeknoFont = weeknoFont;
         [self.calendar configureAppearance];
     }
 }
@@ -376,6 +388,68 @@
     return _borderColors[@(FSCalendarCellStateSelected)];
 }
 
+//Added by Dilip
+- (void)setBarUnselectedColor:(UIColor *)color
+{
+    if (color) {
+        _backgroundColors[@(FSCalendarCellStateUnselectedBar)] = color;
+    } else {
+        [_backgroundColors removeObjectForKey:@(FSCalendarCellStateUnselectedBar)];
+    }
+    [self.calendar configureAppearance];
+}
+
+- (UIColor *)BarUnselectedColor
+{
+    return _backgroundColors[@(FSCalendarCellStateUnselectedBar)];
+}
+
+- (void)setBarSelectedColor:(UIColor *)color
+{
+    if (color) {
+        _backgroundColors[@(FSCalendarCellStateSelectedBar)] = color;
+    } else {
+        [_backgroundColors removeObjectForKey:@(FSCalendarCellStateSelectedBar)];
+    }
+    [self.calendar configureAppearance];
+}
+
+- (UIColor *)BarSelectedColor
+{
+    return _backgroundColors[@(FSCalendarCellStateSelectedBar)];
+}
+
+- (void)setBarWUnselectedColor:(UIColor *)color
+{
+    if (color) {
+        _backgroundColors[@(FSCalendarCellStateWUnselectedBar)] = color;
+    } else {
+        [_backgroundColors removeObjectForKey:@(FSCalendarCellStateWUnselectedBar)];
+    }
+    [self.calendar configureAppearance];
+}
+
+- (UIColor *)BarWUnselectedColor
+{
+    return _backgroundColors[@(FSCalendarCellStateWUnselectedBar)];
+}
+
+- (void)setBarWSelectedColor:(UIColor *)color
+{
+    if (color) {
+        _backgroundColors[@(FSCalendarCellStateWSelectedBar)] = color;
+    } else {
+        [_backgroundColors removeObjectForKey:@(FSCalendarCellStateWSelectedBar)];
+    }
+    [self.calendar configureAppearance];
+}
+
+- (UIColor *)BarWSelectedColor
+{
+    return _backgroundColors[@(FSCalendarCellStateWSelectedBar)];
+}
+//End Dilip
+
 - (void)setBorderRadius:(CGFloat)borderRadius
 {
     borderRadius = MAX(0.0, borderRadius);
@@ -503,6 +577,11 @@
 - (void)setWeekdayTextSize:(CGFloat)weekdayTextSize
 {
     self.weekdayFont = [UIFont fontWithName:self.weekdayFont.fontName size:weekdayTextSize];
+}
+
+- (void)setWeeknoTextSize:(CGFloat)weeknoTextSize
+{
+    self.weeknoFont = [UIFont fontWithName:self.weeknoFont.fontName size:weeknoTextSize];
 }
 
 - (void)setHeaderTitleTextSize:(CGFloat)headerTitleTextSize

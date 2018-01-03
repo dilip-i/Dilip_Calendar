@@ -17,6 +17,8 @@
 @property (readonly, nonatomic) UIColor *colorForCellFill;
 @property (readonly, nonatomic) UIColor *colorForTitleLabel;
 @property (readonly, nonatomic) UIColor *colorForSubtitleLabel;
+@property (readonly, nonatomic) UIColor *colorForUnselectedBar;
+@property (readonly, nonatomic) UIColor *colorForSelectedBar;
 @property (readonly, nonatomic) UIColor *colorForCellBorder;
 @property (readonly, nonatomic) NSArray<UIColor *> *colorsForEvents;
 @property (readonly, nonatomic) CGFloat borderRadius;
@@ -59,6 +61,7 @@
     
     self.clipsToBounds = NO;
     self.contentView.clipsToBounds = NO;
+//    self.barSelectedView.translatesAutoresizingMaskIntoConstraints = NO;
     
 }
 
@@ -160,6 +163,11 @@
         }
         
     }
+    
+    _barUnselectedView.backgroundColor = self.colorForUnselectedBar;
+    _barSelectedView.backgroundColor = self.colorForSelectedBar;
+    
+    
 }
 
 - (UIColor *)colorForCurrentStateInDictionary:(NSDictionary *)dictionary
@@ -224,6 +232,19 @@
     return _preferredEventDefaultColors ?: @[_appearance.eventDefaultColor];
 }
 
+//Added by Dilip
+- (UIColor *)colorForUnselectedBar
+{
+    return _preferredBarUnselectedColor ?: _appearance.BarUnselectedColor;
+}
+
+- (UIColor *)colorForSelectedBar
+{
+    return _preferredBarSelectedColor ?: _appearance.BarSelectedColor;
+}
+
+//End Dilip
+
 - (CGFloat)borderRadius
 {
     return _preferredBorderRadius >= 0 ? _preferredBorderRadius : _appearance.borderRadius;
@@ -253,6 +274,11 @@ OFFSET_PROPERTY(preferredImageOffset, PreferredImageOffset, _appearance.imageOff
 OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOffset);
 
 #undef OFFSET_PROPERTY
+
+-(void)setProgressBar:(CGFloat)progressBar{
+    [self layoutIfNeeded];
+    _barSelectedViewTrailConstraint.constant = _barUnselectedView.frame.size.width * (1 - progressBar);
+}
 
 - (void)setCalendar:(FSCalendar *)calendar
 {

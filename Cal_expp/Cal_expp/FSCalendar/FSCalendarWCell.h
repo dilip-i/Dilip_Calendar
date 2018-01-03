@@ -14,8 +14,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel  *titleLabel;
 
-@property (weak, nonatomic) IBOutlet UIView  *barView;
-
+@property (weak, nonatomic) IBOutlet UIView  *barWUnselectedView;
+@property (weak, nonatomic) IBOutlet UIView  *barWSelectedView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint  *barWSelectedViewTrailConstraint;
 
 /**
  The shape layer of the cell
@@ -29,6 +30,7 @@
 
 #pragma mark - Private properties
 
+@property (nonatomic) CGFloat progressBar;
 @property (weak, nonatomic) FSCalendar *calendar;
 @property (weak, nonatomic) FSCalendarAppearance *appearance;
 
@@ -46,6 +48,11 @@
 @property (assign, nonatomic) CGPoint preferredSubtitleOffset;
 @property (assign, nonatomic) CGPoint preferredImageOffset;
 @property (assign, nonatomic) CGPoint preferredEventOffset;
+
+//Added by Dilip
+@property (assign, nonatomic) UIColor *preferredBarWUnselectedColor;
+@property (assign, nonatomic) UIColor *preferredBarWSelectedColor;
+//End Dilip
 
 @property (assign, nonatomic) CGFloat preferredBorderRadius;
 

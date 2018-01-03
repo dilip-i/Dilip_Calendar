@@ -13,12 +13,16 @@
 @class FSCalendar;
 
 typedef NS_ENUM(NSInteger, FSCalendarCellState) {
-    FSCalendarCellStateNormal      = 0,
-    FSCalendarCellStateSelected    = 1,
-    FSCalendarCellStatePlaceholder = 1 << 1,
-    FSCalendarCellStateDisabled    = 1 << 2,
-    FSCalendarCellStateToday       = 1 << 3,
-    FSCalendarCellStateWeekend     = 1 << 4,
+    FSCalendarCellStateNormal             = 0,
+    FSCalendarCellStateSelected           = 1,
+    FSCalendarCellStatePlaceholder        = 1 << 1,
+    FSCalendarCellStateDisabled           = 1 << 2,
+    FSCalendarCellStateToday              = 1 << 3,
+    FSCalendarCellStateWeekend            = 1 << 4,
+    FSCalendarCellStateUnselectedBar      = 1 << 5,
+    FSCalendarCellStateSelectedBar        = 1 << 6,
+    FSCalendarCellStateWUnselectedBar     = 1 << 7,
+    FSCalendarCellStateWSelectedBar       = 1 << 8,
     FSCalendarCellStateTodaySelected = FSCalendarCellStateToday|FSCalendarCellStateSelected
 };
 
@@ -57,6 +61,11 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarCaseOptions) {
  * The font of the weekday text.
  */
 @property (strong, nonatomic) UIFont   *weekdayFont;
+
+/**
+ * The font of the weekno text.
+ */
+@property (strong, nonatomic) UIFont   *weeknoFont;
 
 /**
  * The font of the month text.
@@ -187,6 +196,13 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarCaseOptions) {
  * The border color of the shape for selected state.
  */
 @property (strong, nonatomic) UIColor  *borderSelectionColor;
+
+//Added by Dilip
+@property (strong, nonatomic) UIColor  *BarUnselectedColor;
+@property (strong, nonatomic) UIColor  *BarSelectedColor;
+@property (strong, nonatomic) UIColor  *BarWUnselectedColor;
+@property (strong, nonatomic) UIColor  *BarWSelectedColor;
+//End Dilip
 
 /**
  * The border radius, while 1 means a circle, 0 means a rectangle, and the middle value will give it a corner radius.

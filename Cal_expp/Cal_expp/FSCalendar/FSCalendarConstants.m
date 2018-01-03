@@ -22,6 +22,7 @@ CGFloat const FSCalendarStandardRowHeight = 38;
 CGFloat const FSCalendarStandardTitleTextSize = 13.5;
 CGFloat const FSCalendarStandardSubtitleTextSize = 10;
 CGFloat const FSCalendarStandardWeekdayTextSize = 14;
+CGFloat const FSCalendarStandardWeeknoTextSize = 18;
 CGFloat const FSCalendarStandardHeaderTextSize = 16.5;
 CGFloat const FSCalendarMaximumEventDotDiameter = 4.8;
 CGFloat const FSCalendarStandardScopeHandleHeight = 26;

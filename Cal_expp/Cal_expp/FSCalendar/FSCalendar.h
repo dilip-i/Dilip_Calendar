@@ -536,7 +536,7 @@ IB_DESIGNABLE
  */
 - (NSArray<__kindof FSCalendarCell *> *)visibleCells;
 
-- (NSArray<FSCalendarCell *> *)visibleWeekNoCells;
+- (NSArray<FSCalendarWCell *> *)visibleWeekNoCells;
 
 /**
  Returns the frame for a non-placeholder cell relative to the super view of the calendar.
@@ -564,6 +564,7 @@ IB_DESIGNABLE
 @property (assign, nonatomic) IBInspectable CGFloat  subtitleTextSize;
 @property (assign, nonatomic) IBInspectable CGFloat  weekdayTextSize;
 @property (assign, nonatomic) IBInspectable CGFloat  headerTitleTextSize;
+@property (assign, nonatomic) IBInspectable CGFloat  weeknoTextSize;
 
 @property (strong, nonatomic) IBInspectable UIColor  *eventDefaultColor;
 @property (strong, nonatomic) IBInspectable UIColor  *eventSelectionColor;
@@ -598,6 +599,11 @@ IB_DESIGNABLE
 @property (assign, nonatomic) IBInspectable BOOL      fakeSubtitles;
 @property (assign, nonatomic) IBInspectable BOOL      fakeEventDots;
 @property (assign, nonatomic) IBInspectable NSInteger fakedSelectedDay;
+
+@property (strong, nonatomic) IBInspectable UIColor  *barWUnselectedColor;
+@property (strong, nonatomic) IBInspectable UIColor  *barWSelectedColor;
+@property (strong, nonatomic) IBInspectable UIColor  *barUnselectedColor;
+@property (strong, nonatomic) IBInspectable UIColor  *barSelectedColor;
 
 #endif
 

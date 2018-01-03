@@ -21,7 +21,9 @@ typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
  */
 @property (weak, nonatomic) IBOutlet UILabel  *titleLabel;
 
-@property (weak, nonatomic) IBOutlet UIView  *barView;
+@property (weak, nonatomic) IBOutlet UIView  *barUnselectedView;
+@property (weak, nonatomic) IBOutlet UIView  *barSelectedView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint  *barSelectedViewTrailConstraint;
 
 
 /**
@@ -36,6 +38,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
 
 #pragma mark - Private properties
 
+@property (nonatomic) CGFloat progressBar;
 @property (weak, nonatomic) FSCalendar *calendar;
 @property (weak, nonatomic) FSCalendarAppearance *appearance;
 
@@ -58,6 +61,11 @@ typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
 @property (assign, nonatomic) CGPoint preferredSubtitleOffset;
 @property (assign, nonatomic) CGPoint preferredImageOffset;
 @property (assign, nonatomic) CGPoint preferredEventOffset;
+
+//Added by Dilip
+@property (assign, nonatomic) UIColor *preferredBarUnselectedColor;
+@property (assign, nonatomic) UIColor *preferredBarSelectedColor;
+//End Dilip
 
 @property (strong, nonatomic) NSArray<UIColor *> *preferredEventDefaultColors;
 @property (strong, nonatomic) NSArray<UIColor *> *preferredEventSelectionColors;
