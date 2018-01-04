@@ -1581,16 +1581,6 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     FSCalendarInvalidateCellAppearance(preferredTitleSelectionColor,titleSelectionColorForDate);
 
     FSCalendarInvalidateCellAppearanceWithDefault(preferredTitleOffset,titleOffsetForDate,CGPointInfinity);
-    if (cell.subtitle) {
-        FSCalendarInvalidateCellAppearance(preferredSubtitleDefaultColor,subtitleDefaultColorForDate);
-        FSCalendarInvalidateCellAppearance(preferredSubtitleSelectionColor,subtitleSelectionColorForDate);
-        FSCalendarInvalidateCellAppearanceWithDefault(preferredSubtitleOffset,subtitleOffsetForDate,CGPointInfinity);
-    }
-//    if (cell.numberOfEvents) {
-//        FSCalendarInvalidateCellAppearance(preferredEventDefaultColors,eventDefaultColorsForDate);
-//        FSCalendarInvalidateCellAppearance(preferredEventSelectionColors,eventSelectionColorsForDate);
-//        FSCalendarInvalidateCellAppearanceWithDefault(preferredEventOffset,eventOffsetForDate,CGPointInfinity);
-//    }
     FSCalendarInvalidateCellAppearance(preferredBorderDefaultColor,borderDefaultColorForDate);
     FSCalendarInvalidateCellAppearance(preferredBorderSelectionColor,borderSelectionColorForDate);
     FSCalendarInvalidateCellAppearanceWithDefault(preferredBorderRadius,borderRadiusForDate,-1);

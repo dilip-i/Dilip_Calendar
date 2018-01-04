@@ -580,11 +580,10 @@ IB_DESIGNABLE
 @property (strong, nonatomic) IBInspectable UIColor  *titlePlaceholderColor;
 @property (strong, nonatomic) IBInspectable UIColor  *titleWeekendColor;
 
-@property (strong, nonatomic) IBInspectable UIColor  *subtitleDefaultColor;
-@property (strong, nonatomic) IBInspectable UIColor  *subtitleSelectionColor;
-@property (strong, nonatomic) IBInspectable UIColor  *subtitleTodayColor;
-@property (strong, nonatomic) IBInspectable UIColor  *subtitlePlaceholderColor;
-@property (strong, nonatomic) IBInspectable UIColor  *subtitleWeekendColor;
+@property (strong, nonatomic) IBInspectable UIColor  *weekTitleDefaultColor;
+@property (strong, nonatomic) IBInspectable UIColor  *weekTitleSelectionColor;
+@property (strong, nonatomic) IBInspectable UIColor  *weekTitleTodayColor;
+@property (strong, nonatomic) IBInspectable UIColor  *titlePlaceholderColor;
 
 @property (strong, nonatomic) IBInspectable UIColor  *selectionColor;
 @property (strong, nonatomic) IBInspectable UIColor  *todayColor;

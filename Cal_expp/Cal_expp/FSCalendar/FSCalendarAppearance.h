@@ -23,6 +23,11 @@ typedef NS_ENUM(NSInteger, FSCalendarCellState) {
     FSCalendarCellStateSelectedBar        = 1 << 6,
     FSCalendarCellStateWUnselectedBar     = 1 << 7,
     FSCalendarCellStateWSelectedBar       = 1 << 8,
+    FSCalendarWCellStateNormal            = 1 << 9,
+    FSCalendarWCellStateSelected          = 1 << 10,
+    FSCalendarWCellStatePlaceholder       = 1 << 11,
+    FSCalendarWCellStateDisabled          = 1 << 12,
+    FSCalendarWCellStateToday             = 1 << 13,
     FSCalendarCellStateTodaySelected = FSCalendarCellStateToday|FSCalendarCellStateSelected
 };
 
@@ -148,29 +153,24 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarCaseOptions) {
 @property (strong, nonatomic) UIColor  *titleWeekendColor;
 
 /**
- * The subtitle text color for unselected state.
+ * The week no text color for unselected state.
  */
-@property (strong, nonatomic) UIColor  *subtitleDefaultColor;
+@property (strong, nonatomic) UIColor  *weekTitleDefaultColor;
 
 /**
- * The subtitle text color for selected state.
+ * The week no text color for selected state.
  */
-@property (strong, nonatomic) UIColor  *subtitleSelectionColor;
+@property (strong, nonatomic) UIColor  *weekTitleSelectionColor;
 
 /**
- * The subtitle text color for today in the calendar.
+ * The week no text color for today week in the calendar.
  */
-@property (strong, nonatomic) UIColor  *subtitleTodayColor;
+@property (strong, nonatomic) UIColor  *weekTitleTodayColor;
 
 /**
- * The subtitle text color for days out of current month.
+ * The week no text color for weeks out of current month.
  */
-@property (strong, nonatomic) UIColor  *subtitlePlaceholderColor;
-
-/**
- * The subtitle text color for weekend.
- */
-@property (strong, nonatomic) UIColor  *subtitleWeekendColor;
+@property (strong, nonatomic) UIColor  *weekTitlePlaceholderColor;
 
 /**
  * The fill color of the shape for selected state.

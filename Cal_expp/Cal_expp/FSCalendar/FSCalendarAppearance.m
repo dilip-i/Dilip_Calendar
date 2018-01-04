@@ -18,7 +18,6 @@
 
 @property (strong, nonatomic) NSMutableDictionary *backgroundColors;
 @property (strong, nonatomic) NSMutableDictionary *titleColors;
-@property (strong, nonatomic) NSMutableDictionary *subtitleColors;
 @property (strong, nonatomic) NSMutableDictionary *borderColors;
 
 @end
@@ -53,19 +52,17 @@
         _backgroundColors[@(FSCalendarCellStateWSelectedBar)] = [UIColor redColor];
         _backgroundColors[@(FSCalendarCellStateToday)]       = FSCalendarStandardTodayColor;
         
-        _titleColors = [NSMutableDictionary dictionaryWithCapacity:5];
+        _titleColors = [NSMutableDictionary dictionaryWithCapacity:10];
         _titleColors[@(FSCalendarCellStateNormal)]      = [UIColor blackColor];
         _titleColors[@(FSCalendarCellStateSelected)]    = [UIColor whiteColor];
         _titleColors[@(FSCalendarCellStateDisabled)]    = [UIColor grayColor];
         _titleColors[@(FSCalendarCellStatePlaceholder)] = [UIColor lightGrayColor];
         _titleColors[@(FSCalendarCellStateToday)]       = [UIColor whiteColor];
-        
-        _subtitleColors = [NSMutableDictionary dictionaryWithCapacity:5];
-        _subtitleColors[@(FSCalendarCellStateNormal)]      = [UIColor darkGrayColor];
-        _subtitleColors[@(FSCalendarCellStateSelected)]    = [UIColor whiteColor];
-        _subtitleColors[@(FSCalendarCellStateDisabled)]    = [UIColor lightGrayColor];
-        _subtitleColors[@(FSCalendarCellStatePlaceholder)] = [UIColor lightGrayColor];
-        _subtitleColors[@(FSCalendarCellStateToday)]       = [UIColor whiteColor];
+        _titleColors[@(FSCalendarWCellStateNormal)]      = [UIColor blackColor];
+        _titleColors[@(FSCalendarWCellStateSelected)]    = [UIColor whiteColor];
+        _titleColors[@(FSCalendarWCellStateDisabled)]    = [UIColor grayColor];
+        _titleColors[@(FSCalendarWCellStatePlaceholder)] = [UIColor lightGrayColor];
+        _titleColors[@(FSCalendarWCellStateToday)]       = [UIColor whiteColor];
         
         _borderColors[@(FSCalendarCellStateSelected)] = [UIColor clearColor];
         _borderColors[@(FSCalendarCellStateNormal)] = [UIColor clearColor];
@@ -230,79 +227,64 @@
     return _titleColors[@(FSCalendarCellStateWeekend)];
 }
 
-- (void)setSubtitleDefaultColor:(UIColor *)color
+- (void)setWeekTitleDefaultColor:(UIColor *)color
 {
     if (color) {
-        _subtitleColors[@(FSCalendarCellStateNormal)] = color;
+        _titleColors[@(FSCalendarWCellStateNormal)] = color;
     } else {
-        [_subtitleColors removeObjectForKey:@(FSCalendarCellStateNormal)];
+        [_titleColors removeObjectForKey:@(FSCalendarWCellStateNormal)];
     }
     [self.calendar configureAppearance];
 }
 
--(UIColor *)subtitleDefaultColor
+- (UIColor *)weekTitleDefaultColor
 {
-    return _subtitleColors[@(FSCalendarCellStateNormal)];
+    return _titleColors[@(FSCalendarWCellStateNormal)];
 }
 
-- (void)setSubtitleSelectionColor:(UIColor *)color
+- (void)setWeekTitleSelectionColor:(UIColor *)color
 {
     if (color) {
-        _subtitleColors[@(FSCalendarCellStateSelected)] = color;
+        _titleColors[@(FSCalendarWCellStateSelected)] = color;
     } else {
-        [_subtitleColors removeObjectForKey:@(FSCalendarCellStateSelected)];
+        [_titleColors removeObjectForKey:@(FSCalendarWCellStateSelected)];
     }
     [self.calendar configureAppearance];
 }
 
-- (UIColor *)subtitleSelectionColor
+- (UIColor *)weekTitleSelectionColor
 {
-    return _subtitleColors[@(FSCalendarCellStateSelected)];
+    return _titleColors[@(FSCalendarWCellStateSelected)];
 }
 
-- (void)setSubtitleTodayColor:(UIColor *)color
+- (void)setWeekTitleTodayColor:(UIColor *)color
 {
     if (color) {
-        _subtitleColors[@(FSCalendarCellStateToday)] = color;
+        _titleColors[@(FSCalendarWCellStateToday)] = color;
     } else {
-        [_subtitleColors removeObjectForKey:@(FSCalendarCellStateToday)];
+        [_titleColors removeObjectForKey:@(FSCalendarWCellStateToday)];
     }
     [self.calendar configureAppearance];
 }
 
-- (UIColor *)subtitleTodayColor
+- (UIColor *)weekTitleTodayColor
 {
-    return _subtitleColors[@(FSCalendarCellStateToday)];
+    return _titleColors[@(FSCalendarWCellStateToday)];
 }
 
-- (void)setSubtitlePlaceholderColor:(UIColor *)color
+- (void)setWeekTitlePlaceholderColor:(UIColor *)color
 {
     if (color) {
-        _subtitleColors[@(FSCalendarCellStatePlaceholder)] = color;
+        _titleColors[@(FSCalendarWCellStatePlaceholder)] = color;
     } else {
-        [_subtitleColors removeObjectForKey:@(FSCalendarCellStatePlaceholder)];
+        [_titleColors removeObjectForKey:@(FSCalendarWCellStatePlaceholder)];
     }
     [self.calendar configureAppearance];
 }
 
-- (UIColor *)subtitlePlaceholderColor
+- (UIColor *)weekTitlePlaceholderColor
 {
-    return _subtitleColors[@(FSCalendarCellStatePlaceholder)];
-}
-
-- (void)setSubtitleWeekendColor:(UIColor *)color
-{
-    if (color) {
-        _subtitleColors[@(FSCalendarCellStateWeekend)] = color;
-    } else {
-        [_subtitleColors removeObjectForKey:@(FSCalendarCellStateWeekend)];
-    }
-    [self.calendar configureAppearance];
-}
-
-- (UIColor *)subtitleWeekendColor
-{
-    return _subtitleColors[@(FSCalendarCellStateWeekend)];
+    return _titleColors[@(FSCalendarWCellStatePlaceholder)];
 }
 
 - (void)setSelectionColor:(UIColor *)color

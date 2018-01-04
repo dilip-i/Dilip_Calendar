@@ -16,7 +16,6 @@
 
 @property (readonly, nonatomic) UIColor *colorForCellFill;
 @property (readonly, nonatomic) UIColor *colorForTitleLabel;
-@property (readonly, nonatomic) UIColor *colorForSubtitleLabel;
 @property (readonly, nonatomic) UIColor *colorForUnselectedBar;
 @property (readonly, nonatomic) UIColor *colorForSelectedBar;
 @property (readonly, nonatomic) UIColor *colorForCellBorder;
@@ -49,14 +48,14 @@
 
 - (void)commonInit
 {   
-    CAShapeLayer *shapeLayer;
-    shapeLayer = [CAShapeLayer layer];
-    shapeLayer.backgroundColor = [UIColor clearColor].CGColor;
-    shapeLayer.borderWidth = 1.0;
-    shapeLayer.borderColor = [UIColor clearColor].CGColor;
-    shapeLayer.opacity = 0;
-    [self.contentView.layer insertSublayer:shapeLayer below:_titleLabel.layer];
-    self.shapeLayer = shapeLayer;
+//    CAShapeLayer *shapeLayer;
+//    shapeLayer = [CAShapeLayer layer];
+//    shapeLayer.backgroundColor = [UIColor clearColor].CGColor;
+//    shapeLayer.borderWidth = 1.0;
+//    shapeLayer.borderColor = [UIColor clearColor].CGColor;
+//    shapeLayer.opacity = 0;
+//    [self.contentView.layer insertSublayer:shapeLayer below:_titleLabel.layer];
+//    self.shapeLayer = shapeLayer;
     
     
     self.clipsToBounds = NO;
@@ -69,18 +68,18 @@
 {
     [super layoutSubviews];
     
-    CGFloat titleHeight = self.bounds.size.height;
-    CGFloat diameter = MIN(self.bounds.size.height,self.bounds.size.width);
-    diameter = diameter > FSCalendarStandardCellDiameter ? (diameter - (diameter-FSCalendarStandardCellDiameter)*0.5) : diameter;
-    _shapeLayer.frame = CGRectMake((self.bounds.size.width-diameter)/2,
-                                   (titleHeight-diameter)/2,
-                                   diameter,
-                                   diameter);
-
-    CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
-    if (!CGPathEqualToPath(_shapeLayer.path,path)) {
-        _shapeLayer.path = path;
-    }
+//    CGFloat titleHeight = self.bounds.size.height;
+//    CGFloat diameter = MIN(self.bounds.size.height,self.bounds.size.width);
+//    diameter = diameter > FSCalendarStandardCellDiameter ? (diameter - (diameter-FSCalendarStandardCellDiameter)*0.5) : diameter;
+//    _shapeLayer.frame = CGRectMake((self.bounds.size.width-diameter)/2,
+//                                   (titleHeight-diameter)/2,
+//                                   diameter,
+//                                   diameter);
+//
+//    CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
+//    if (!CGPathEqualToPath(_shapeLayer.path,path)) {
+//        _shapeLayer.path = path;
+//    }
 
 //    CGFloat eventSize = _shapeLayer.frame.size.height/6.0;
     
@@ -89,37 +88,37 @@
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    if (self.window) { // Avoid interrupt of navigation transition somehow
-        [CATransaction setDisableActions:YES]; // Avoid blink of shape layer.
-    }
-    self.shapeLayer.opacity = 0;
-    [self.contentView.layer removeAnimationForKey:@"opacity"];
+//    if (self.window) { // Avoid interrupt of navigation transition somehow
+//        [CATransaction setDisableActions:YES]; // Avoid blink of shape layer.
+//    }
+//    self.shapeLayer.opacity = 0;
+//    [self.contentView.layer removeAnimationForKey:@"opacity"];
 }
 
 #pragma mark - Public
 
 - (void)performSelecting
 {
-    _shapeLayer.opacity = 1;
-    
-#define kAnimationDuration FSCalendarDefaultBounceAnimationDuration
-    
-    CAAnimationGroup *group = [CAAnimationGroup animation];
-    CABasicAnimation *zoomOut = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    zoomOut.fromValue = @0.3;
-    zoomOut.toValue = @1.2;
-    zoomOut.duration = kAnimationDuration/4*3;
-    CABasicAnimation *zoomIn = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    zoomIn.fromValue = @1.2;
-    zoomIn.toValue = @1.0;
-    zoomIn.beginTime = kAnimationDuration/4*3;
-    zoomIn.duration = kAnimationDuration/4;
-    group.duration = kAnimationDuration;
-    group.animations = @[zoomOut, zoomIn];
-    [_shapeLayer addAnimation:group forKey:@"bounce"];
+//    _shapeLayer.opacity = 1;
+//
+//#define kAnimationDuration FSCalendarDefaultBounceAnimationDuration
+//
+//    CAAnimationGroup *group = [CAAnimationGroup animation];
+//    CABasicAnimation *zoomOut = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+//    zoomOut.fromValue = @0.3;
+//    zoomOut.toValue = @1.2;
+//    zoomOut.duration = kAnimationDuration/4*3;
+//    CABasicAnimation *zoomIn = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+//    zoomIn.fromValue = @1.2;
+//    zoomIn.toValue = @1.0;
+//    zoomIn.beginTime = kAnimationDuration/4*3;
+//    zoomIn.duration = kAnimationDuration/4;
+//    group.duration = kAnimationDuration;
+//    group.animations = @[zoomOut, zoomIn];
+//    [_shapeLayer addAnimation:group forKey:@"bounce"];
     [self configureAppearance];
-    
-#undef kAnimationDuration
+//
+//#undef kAnimationDuration
     
 }
 
@@ -139,30 +138,30 @@
     UIColor *borderColor = self.colorForCellBorder;
     UIColor *fillColor = self.colorForCellFill;
     
-    BOOL shouldHideShapeLayer = !self.selected && !self.dateIsToday && !borderColor && !fillColor;
-    
-    if (_shapeLayer.opacity == shouldHideShapeLayer) {
-        _shapeLayer.opacity = !shouldHideShapeLayer;
-    }
-    if (!shouldHideShapeLayer) {
-        
-        CGColorRef cellFillColor = self.colorForCellFill.CGColor;
-        if (!CGColorEqualToColor(_shapeLayer.fillColor, cellFillColor)) {
-            _shapeLayer.fillColor = cellFillColor;
-        }
-        
-        CGColorRef cellBorderColor = self.colorForCellBorder.CGColor;
-        if (!CGColorEqualToColor(_shapeLayer.strokeColor, cellBorderColor)) {
-            _shapeLayer.strokeColor = cellBorderColor;
-        }
-        
-        CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds
-                                                    cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
-        if (!CGPathEqualToPath(_shapeLayer.path, path)) {
-            _shapeLayer.path = path;
-        }
-        
-    }
+//    BOOL shouldHideShapeLayer = !self.selected && !self.dateIsToday && !borderColor && !fillColor;
+//    
+//    if (_shapeLayer.opacity == shouldHideShapeLayer) {
+//        _shapeLayer.opacity = !shouldHideShapeLayer;
+//    }
+//    if (!shouldHideShapeLayer) {
+//        
+//        CGColorRef cellFillColor = self.colorForCellFill.CGColor;
+//        if (!CGColorEqualToColor(_shapeLayer.fillColor, cellFillColor)) {
+//            _shapeLayer.fillColor = cellFillColor;
+//        }
+//        
+//        CGColorRef cellBorderColor = self.colorForCellBorder.CGColor;
+//        if (!CGColorEqualToColor(_shapeLayer.strokeColor, cellBorderColor)) {
+//            _shapeLayer.strokeColor = cellBorderColor;
+//        }
+//        
+//        CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds
+//                                                    cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
+//        if (!CGPathEqualToPath(_shapeLayer.path, path)) {
+//            _shapeLayer.path = path;
+//        }
+//        
+//    }
     
     _barUnselectedView.backgroundColor = self.colorForUnselectedBar;
     _barSelectedView.backgroundColor = self.colorForSelectedBar;
@@ -206,14 +205,6 @@
         return self.preferredTitleSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
     }
     return self.preferredTitleDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
-}
-
-- (UIColor *)colorForSubtitleLabel
-{
-    if (self.selected) {
-        return self.preferredSubtitleSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.subtitleColors];
-    }
-    return self.preferredSubtitleDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.subtitleColors];
 }
 
 - (UIColor *)colorForCellBorder
