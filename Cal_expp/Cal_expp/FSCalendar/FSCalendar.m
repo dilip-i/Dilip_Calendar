@@ -522,7 +522,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         FSCalendarWCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:FSCalendarWeekNoCellReuseIdentifier forIndexPath:indexPath];
         cell.calendar = self;
         cell.titleLabel.text = [NSString stringWithFormat:@"%ld",(long)weekno.integerValue];
-        cell.progressBar = (arc4random_uniform(10))/10.0;
+        cell.progressBar = ((arc4random_uniform(10))/10.0)>0.5?-1:0.5;
         [cell configureAppearance];
         return cell;
     }
@@ -555,7 +555,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:FSCalendarDefaultCellReuseIdentifier forIndexPath:indexPath];
     }
     [self reloadDataForCell:cell atIndexPath:indexPath];
-    cell.progressBar = (arc4random_uniform(10))/10.0;
+    cell.progressBar = ((arc4random_uniform(10))/10.0)>0.5?-1:0.5;
     return cell;
 }
 
@@ -1584,10 +1584,6 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     FSCalendarInvalidateCellAppearance(preferredBorderDefaultColor,borderDefaultColorForDate);
     FSCalendarInvalidateCellAppearance(preferredBorderSelectionColor,borderSelectionColorForDate);
     FSCalendarInvalidateCellAppearanceWithDefault(preferredBorderRadius,borderRadiusForDate,-1);
-
-    if (cell.image) {
-        FSCalendarInvalidateCellAppearanceWithDefault(preferredImageOffset,imageOffsetForDate,CGPointInfinity);
-    }
     
 #undef FSCalendarInvalidateCellAppearance
 #undef FSCalendarInvalidateCellAppearanceWithDefault
@@ -1598,10 +1594,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 {
     cell.calendar = self;
     NSDate *date = [self.calculator dateForIndexPath:indexPath];
-    cell.image = [self.dataSourceProxy calendar:self imageForDate:date];
-//    cell.numberOfEvents = [self.dataSourceProxy calendar:self numberOfEventsForDate:date];
     cell.titleLabel.text = [self.dataSourceProxy calendar:self titleForDate:date] ?: @([self.gregorian component:NSCalendarUnitDay fromDate:date]).stringValue;
-    cell.subtitle  = [self.dataSourceProxy calendar:self subtitleForDate:date];
     cell.selected = [_selectedDates containsObject:date];
     cell.dateIsToday = self.today?[self.gregorian isDate:date inSameDayAsDate:self.today]:NO;
     cell.weekend = [self.gregorian isDateInWeekend:date];

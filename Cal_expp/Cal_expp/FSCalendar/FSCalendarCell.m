@@ -18,6 +18,7 @@
 @property (readonly, nonatomic) UIColor *colorForTitleLabel;
 @property (readonly, nonatomic) UIColor *colorForUnselectedBar;
 @property (readonly, nonatomic) UIColor *colorForSelectedBar;
+@property (readonly, nonatomic) UIColor *colorForNoWorkBar;
 @property (readonly, nonatomic) UIColor *colorForCellBorder;
 @property (readonly, nonatomic) NSArray<UIColor *> *colorsForEvents;
 @property (readonly, nonatomic) CGFloat borderRadius;
@@ -215,14 +216,6 @@
     return _preferredBorderDefaultColor ?: _appearance.borderDefaultColor;
 }
 
-- (NSArray<UIColor *> *)colorsForEvents
-{
-    if (self.selected) {
-        return _preferredEventSelectionColors ?: @[_appearance.eventSelectionColor];
-    }
-    return _preferredEventDefaultColors ?: @[_appearance.eventDefaultColor];
-}
-
 //Added by Dilip
 - (UIColor *)colorForUnselectedBar
 {
@@ -232,6 +225,11 @@
 - (UIColor *)colorForSelectedBar
 {
     return _preferredBarSelectedColor ?: _appearance.BarSelectedColor;
+}
+
+- (UIColor *)colorForNoWorkBar
+{
+    return _preferredBarNoWorkColor ?: _appearance.BarNoWorkColor;
 }
 
 //End Dilip
@@ -260,15 +258,20 @@
 }
 
 OFFSET_PROPERTY(preferredTitleOffset, PreferredTitleOffset, _appearance.titleOffset);
-OFFSET_PROPERTY(preferredSubtitleOffset, PreferredSubtitleOffset, _appearance.subtitleOffset);
-OFFSET_PROPERTY(preferredImageOffset, PreferredImageOffset, _appearance.imageOffset);
-OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOffset);
 
 #undef OFFSET_PROPERTY
 
 -(void)setProgressBar:(CGFloat)progressBar{
     [self layoutIfNeeded];
-    _barSelectedViewTrailConstraint.constant = _barUnselectedView.frame.size.width * (1 - progressBar);
+    if(progressBar<0){
+        _barSelectedViewTrailConstraint.constant = 0; //put any dummy value doesnt matter actually
+        _barUnselectedView.backgroundColor = self.colorForNoWorkBar;
+        _barSelectedView.backgroundColor = self.colorForNoWorkBar;
+    }else{
+        _barUnselectedView.backgroundColor = self.colorForUnselectedBar;
+        _barSelectedView.backgroundColor = self.colorForSelectedBar;
+        _barSelectedViewTrailConstraint.constant = _barUnselectedView.frame.size.width * (1 - progressBar);
+    }
 }
 
 - (void)setCalendar:(FSCalendar *)calendar
@@ -277,17 +280,6 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
         _calendar = calendar;
         _appearance = calendar.appearance;
         [self configureAppearance];
-    }
-}
-
-- (void)setSubtitle:(NSString *)subtitle
-{
-    if (![_subtitle isEqualToString:subtitle]) {
-        BOOL diff = (subtitle.length && !_subtitle.length) || (_subtitle.length && !subtitle.length);
-        _subtitle = subtitle;
-        if (diff) {
-            [self setNeedsLayout];
-        }
     }
 }
 

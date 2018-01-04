@@ -30,7 +30,6 @@
     if (self) {
         
         _titleFont = [UIFont systemFontOfSize:FSCalendarStandardTitleTextSize];
-        _subtitleFont = [UIFont systemFontOfSize:FSCalendarStandardSubtitleTextSize];
         _weekdayFont = [UIFont systemFontOfSize:FSCalendarStandardWeekdayTextSize];
         _weeknoFont = [UIFont systemFontOfSize:FSCalendarStandardWeeknoTextSize];
         _headerTitleFont = [UIFont systemFontOfSize:FSCalendarStandardHeaderTextSize];
@@ -41,15 +40,17 @@
         _weekdayTextColor = FSCalendarStandardTitleTextColor;
         _caseOptions = FSCalendarCaseOptionsHeaderUsesDefaultCase|FSCalendarCaseOptionsWeekdayUsesDefaultCase;
         
-        _backgroundColors = [NSMutableDictionary dictionaryWithCapacity:9];
+        _backgroundColors = [NSMutableDictionary dictionaryWithCapacity:11];
         _backgroundColors[@(FSCalendarCellStateNormal)]      = [UIColor clearColor];
         _backgroundColors[@(FSCalendarCellStateSelected)]    = FSCalendarStandardSelectionColor;
         _backgroundColors[@(FSCalendarCellStateDisabled)]    = [UIColor clearColor];
         _backgroundColors[@(FSCalendarCellStatePlaceholder)] = [UIColor clearColor];
         _backgroundColors[@(FSCalendarCellStateUnselectedBar)] = [UIColor lightGrayColor];
         _backgroundColors[@(FSCalendarCellStateSelectedBar)] = [UIColor blueColor];
+        _backgroundColors[@(FSCalendarCellStateNoWorkBar)] = [UIColor clearColor];
         _backgroundColors[@(FSCalendarCellStateWUnselectedBar)] = [UIColor yellowColor];
         _backgroundColors[@(FSCalendarCellStateWSelectedBar)] = [UIColor redColor];
+        _backgroundColors[@(FSCalendarCellStateWNoWorkBar)] = [UIColor clearColor];
         _backgroundColors[@(FSCalendarCellStateToday)]       = FSCalendarStandardTodayColor;
         
         _titleColors = [NSMutableDictionary dictionaryWithCapacity:10];
@@ -68,8 +69,6 @@
         _borderColors[@(FSCalendarCellStateNormal)] = [UIColor clearColor];
         
         _borderRadius = 1.0;
-        _eventDefaultColor = FSCalendarStandardEventDotColor;
-        _eventSelectionColor = FSCalendarStandardEventDotColor;
         
         _borderColors = [NSMutableDictionary dictionaryWithCapacity:2];
         
@@ -85,14 +84,6 @@
 {
     if (![_titleFont isEqual:titleFont]) {
         _titleFont = titleFont;
-        [self.calendar configureAppearance];
-    }
-}
-
-- (void)setSubtitleFont:(UIFont *)subtitleFont
-{
-    if (![_subtitleFont isEqual:subtitleFont]) {
-        _subtitleFont = subtitleFont;
         [self.calendar configureAppearance];
     }
 }
@@ -124,30 +115,6 @@
 {
     if (!CGPointEqualToPoint(_titleOffset, titleOffset)) {
         _titleOffset = titleOffset;
-        [_calendar.visibleCells makeObjectsPerformSelector:@selector(setNeedsLayout)];
-    }
-}
-
-- (void)setSubtitleOffset:(CGPoint)subtitleOffset
-{
-    if (!CGPointEqualToPoint(_subtitleOffset, subtitleOffset)) {
-        _subtitleOffset = subtitleOffset;
-        [_calendar.visibleCells makeObjectsPerformSelector:@selector(setNeedsLayout)];
-    }
-}
-
-- (void)setImageOffset:(CGPoint)imageOffset
-{
-    if (!CGPointEqualToPoint(_imageOffset, imageOffset)) {
-        _imageOffset = imageOffset;
-        [_calendar.visibleCells makeObjectsPerformSelector:@selector(setNeedsLayout)];
-    }
-}
-
-- (void)setEventOffset:(CGPoint)eventOffset
-{
-    if (!CGPointEqualToPoint(_eventOffset, eventOffset)) {
-        _eventOffset = eventOffset;
         [_calendar.visibleCells makeObjectsPerformSelector:@selector(setNeedsLayout)];
     }
 }
@@ -332,14 +299,6 @@
     return _backgroundColors[@(FSCalendarCellStateToday|FSCalendarCellStateSelected)];
 }
 
-- (void)setEventDefaultColor:(UIColor *)eventDefaultColor
-{
-    if (![_eventDefaultColor isEqual:eventDefaultColor]) {
-        _eventDefaultColor = eventDefaultColor;
-        [self.calendar configureAppearance];
-    }
-}
-
 - (void)setBorderDefaultColor:(UIColor *)color
 {
     if (color) {
@@ -416,6 +375,21 @@
     return _backgroundColors[@(FSCalendarCellStateWUnselectedBar)];
 }
 
+- (void)setBarNoWorkColor:(UIColor *)color
+{
+    if (color) {
+        _backgroundColors[@(FSCalendarCellStateNoWorkBar)] = color;
+    } else {
+        [_backgroundColors removeObjectForKey:@(FSCalendarCellStateNoWorkBar)];
+    }
+    [self.calendar configureAppearance];
+}
+
+- (UIColor *)BarNoWorkColor
+{
+    return _backgroundColors[@(FSCalendarCellStateNoWorkBar)];
+}
+
 - (void)setBarWSelectedColor:(UIColor *)color
 {
     if (color) {
@@ -430,6 +404,22 @@
 {
     return _backgroundColors[@(FSCalendarCellStateWSelectedBar)];
 }
+
+- (void)setBarWNoWorkColor:(UIColor *)color
+{
+    if (color) {
+        _backgroundColors[@(FSCalendarCellStateWNoWorkBar)] = color;
+    } else {
+        [_backgroundColors removeObjectForKey:@(FSCalendarCellStateWNoWorkBar)];
+    }
+    [self.calendar configureAppearance];
+}
+
+- (UIColor *)BarWNoWorkColor
+{
+    return _backgroundColors[@(FSCalendarCellStateWNoWorkBar)];
+}
+
 //End Dilip
 
 - (void)setBorderRadius:(CGFloat)borderRadius
@@ -516,26 +506,6 @@
     return self.titleOffset.y;
 }
 
-- (void)setSubtitleVerticalOffset:(CGFloat)subtitleVerticalOffset
-{
-    self.subtitleOffset = CGPointMake(0, subtitleVerticalOffset);
-}
-
-- (CGFloat)subtitleVerticalOffset
-{
-    return self.subtitleOffset.y;
-}
-
-- (void)setEventColor:(UIColor *)eventColor
-{
-    self.eventDefaultColor = eventColor;
-}
-
-- (UIColor *)eventColor
-{
-    return self.eventDefaultColor;
-}
-
 - (void)setCellShape:(FSCalendarCellShape)cellShape
 {
     self.borderRadius = 1-cellShape;
@@ -549,11 +519,6 @@
 - (void)setTitleTextSize:(CGFloat)titleTextSize
 {
     self.titleFont = [UIFont fontWithName:self.titleFont.fontName size:titleTextSize];
-}
-
-- (void)setSubtitleTextSize:(CGFloat)subtitleTextSize
-{
-    self.subtitleFont = [UIFont fontWithName:self.subtitleFont.fontName size:subtitleTextSize];
 }
 
 - (void)setWeekdayTextSize:(CGFloat)weekdayTextSize

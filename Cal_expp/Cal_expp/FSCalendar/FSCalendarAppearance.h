@@ -23,11 +23,13 @@ typedef NS_ENUM(NSInteger, FSCalendarCellState) {
     FSCalendarCellStateSelectedBar        = 1 << 6,
     FSCalendarCellStateWUnselectedBar     = 1 << 7,
     FSCalendarCellStateWSelectedBar       = 1 << 8,
-    FSCalendarWCellStateNormal            = 1 << 9,
-    FSCalendarWCellStateSelected          = 1 << 10,
-    FSCalendarWCellStatePlaceholder       = 1 << 11,
-    FSCalendarWCellStateDisabled          = 1 << 12,
-    FSCalendarWCellStateToday             = 1 << 13,
+    FSCalendarCellStateNoWorkBar          = 1 << 9,
+    FSCalendarCellStateWNoWorkBar         = 1 << 10,
+    FSCalendarWCellStateNormal            = 1 << 11,
+    FSCalendarWCellStateSelected          = 1 << 12,
+    FSCalendarWCellStatePlaceholder       = 1 << 13,
+    FSCalendarWCellStateDisabled          = 1 << 14,
+    FSCalendarWCellStateToday             = 1 << 15,
     FSCalendarCellStateTodaySelected = FSCalendarCellStateToday|FSCalendarCellStateSelected
 };
 
@@ -58,11 +60,6 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarCaseOptions) {
 @property (strong, nonatomic) UIFont   *titleFont;
 
 /**
- * The font of the subtitle text.
- */
-@property (strong, nonatomic) UIFont   *subtitleFont;
-
-/**
  * The font of the weekday text.
  */
 @property (strong, nonatomic) UIFont   *weekdayFont;
@@ -81,31 +78,6 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarCaseOptions) {
  * The offset of the day text from default position.
  */
 @property (assign, nonatomic) CGPoint  titleOffset;
-
-/**
- * The offset of the day text from default position.
- */
-@property (assign, nonatomic) CGPoint  subtitleOffset;
-
-/**
- * The offset of the event dots from default position.
- */
-@property (assign, nonatomic) CGPoint eventOffset;
-
-/**
- * The offset of the image from default position.
- */
-@property (assign, nonatomic) CGPoint imageOffset;
-
-/**
- * The color of event dots.
- */
-@property (strong, nonatomic) UIColor  *eventDefaultColor;
-
-/**
- * The color of event dots.
- */
-@property (strong, nonatomic) UIColor  *eventSelectionColor;
 
 /**
  * The color of weekday text.
@@ -200,8 +172,10 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarCaseOptions) {
 //Added by Dilip
 @property (strong, nonatomic) UIColor  *BarUnselectedColor;
 @property (strong, nonatomic) UIColor  *BarSelectedColor;
+@property (strong, nonatomic) UIColor  *BarNoWorkColor;
 @property (strong, nonatomic) UIColor  *BarWUnselectedColor;
 @property (strong, nonatomic) UIColor  *BarWSelectedColor;
+@property (strong, nonatomic) UIColor  *BarWNoWorkColor;
 //End Dilip
 
 /**

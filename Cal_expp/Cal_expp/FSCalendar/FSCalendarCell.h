@@ -42,8 +42,6 @@ typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
 @property (weak, nonatomic) FSCalendar *calendar;
 @property (weak, nonatomic) FSCalendarAppearance *appearance;
 
-@property (strong, nonatomic) NSString *subtitle;
-@property (strong, nonatomic) UIImage  *image;
 @property (assign, nonatomic) FSCalendarMonthPosition monthPosition;
 
 @property (assign, nonatomic) BOOL dateIsToday;
@@ -56,13 +54,11 @@ typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
 @property (strong, nonatomic) UIColor *preferredBorderDefaultColor;
 @property (strong, nonatomic) UIColor *preferredBorderSelectionColor;
 @property (assign, nonatomic) CGPoint preferredTitleOffset;
-@property (assign, nonatomic) CGPoint preferredSubtitleOffset;
-@property (assign, nonatomic) CGPoint preferredImageOffset;
-@property (assign, nonatomic) CGPoint preferredEventOffset;
 
 //Added by Dilip
 @property (assign, nonatomic) UIColor *preferredBarUnselectedColor;
 @property (assign, nonatomic) UIColor *preferredBarSelectedColor;
+@property (assign, nonatomic) UIColor *preferredBarNoWorkColor;
 //End Dilip
 
 @property (strong, nonatomic) NSArray<UIColor *> *preferredEventDefaultColors;

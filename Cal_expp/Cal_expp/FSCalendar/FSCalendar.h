@@ -601,8 +601,10 @@ IB_DESIGNABLE
 
 @property (strong, nonatomic) IBInspectable UIColor  *barWUnselectedColor;
 @property (strong, nonatomic) IBInspectable UIColor  *barWSelectedColor;
+@property (strong, nonatomic) IBInspectable UIColor  *barWNoWorkColor;
 @property (strong, nonatomic) IBInspectable UIColor  *barUnselectedColor;
 @property (strong, nonatomic) IBInspectable UIColor  *barSelectedColor;
+@property (strong, nonatomic) IBInspectable UIColor  *barNoWorkColor;
 
 #endif
 

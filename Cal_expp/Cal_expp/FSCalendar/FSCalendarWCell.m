@@ -19,6 +19,7 @@
 @property (readonly, nonatomic) UIColor *colorForCellBorder;
 @property (readonly, nonatomic) UIColor *colorForWUnselectedBar;
 @property (readonly, nonatomic) UIColor *colorForWSelectedBar;
+@property (readonly, nonatomic) UIColor *colorForWNoWorkBar;
 @property (readonly, nonatomic) CGFloat borderRadius;
 
 @end
@@ -46,17 +47,7 @@
 }
 
 - (void)commonInit
-{   
-//    CAShapeLayer *shapeLayer;
-//    shapeLayer = [CAShapeLayer layer];
-//    shapeLayer.backgroundColor = [UIColor clearColor].CGColor;
-//    shapeLayer.borderWidth = 1.0;
-//    shapeLayer.borderColor = [UIColor clearColor].CGColor;
-//    shapeLayer.opacity = 0;
-//    [self.contentView.layer insertSublayer:shapeLayer below:_titleLabel.layer];
-//    self.shapeLayer = shapeLayer;
-    
-    
+{
     self.clipsToBounds = NO;
     self.contentView.clipsToBounds = NO;
     
@@ -65,56 +56,18 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
-//    CGFloat titleHeight = self.bounds.size.height;
-//    CGFloat diameter = MIN(self.bounds.size.height,self.bounds.size.width);
-//    diameter = diameter > FSCalendarStandardCellDiameter ? (diameter - (diameter-FSCalendarStandardCellDiameter)*0.5) : diameter;
-//    _shapeLayer.frame = CGRectMake((self.bounds.size.width-diameter)/2,
-//                                   (titleHeight-diameter)/2,
-//                                   diameter,
-//                                   diameter);
-//
-//    CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
-//    if (!CGPathEqualToPath(_shapeLayer.path,path)) {
-//        _shapeLayer.path = path;
-//    }
 }
 
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-//    if (self.window) { // Avoid interrupt of navigation transition somehow
-//        [CATransaction setDisableActions:YES]; // Avoid blink of shape layer.
-//    }
-//    self.shapeLayer.opacity = 0;
-//    [self.contentView.layer removeAnimationForKey:@"opacity"];
 }
 
 #pragma mark - Public
 
 - (void)performSelecting
 {
-//    _shapeLayer.opacity = 1;
-//
-//#define kAnimationDuration FSCalendarDefaultBounceAnimationDuration
-//
-//    CAAnimationGroup *group = [CAAnimationGroup animation];
-//    CABasicAnimation *zoomOut = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-//    zoomOut.fromValue = @0.3;
-//    zoomOut.toValue = @1.2;
-//    zoomOut.duration = kAnimationDuration/4*3;
-//    CABasicAnimation *zoomIn = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-//    zoomIn.fromValue = @1.2;
-//    zoomIn.toValue = @1.0;
-//    zoomIn.beginTime = kAnimationDuration/4*3;
-//    zoomIn.duration = kAnimationDuration/4;
-//    group.duration = kAnimationDuration;
-//    group.animations = @[zoomOut, zoomIn];
-//    [_shapeLayer addAnimation:group forKey:@"bounce"];
     [self configureAppearance];
-//
-//#undef kAnimationDuration
-    
 }
 
 #pragma mark - Private
@@ -130,36 +83,8 @@
         _titleLabel.font = titleFont;
     }
     
-    UIColor *borderColor = self.colorForCellBorder;
-    UIColor *fillColor = self.colorForCellFill;
-    
-//    BOOL shouldHideShapeLayer = !self.selected && !self.weekIsToday && !borderColor && !fillColor;
-//
-//    if (_shapeLayer.opacity == shouldHideShapeLayer) {
-//        _shapeLayer.opacity = !shouldHideShapeLayer;
-//    }
-//    if (!shouldHideShapeLayer) {
-//
-//        CGColorRef cellFillColor = self.colorForCellFill.CGColor;
-//        if (!CGColorEqualToColor(_shapeLayer.fillColor, cellFillColor)) {
-//            _shapeLayer.fillColor = cellFillColor;
-//        }
-//
-//        CGColorRef cellBorderColor = self.colorForCellBorder.CGColor;
-//        if (!CGColorEqualToColor(_shapeLayer.strokeColor, cellBorderColor)) {
-//            _shapeLayer.strokeColor = cellBorderColor;
-//        }
-//
-//        CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds
-//                                                    cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
-//        if (!CGPathEqualToPath(_shapeLayer.path, path)) {
-//            _shapeLayer.path = path;
-//        }
-//
-//    }
-    
-    _barWUnselectedView.backgroundColor = self.colorForWUnselectedBar;
-    _barWSelectedView.backgroundColor = self.colorForWSelectedBar;
+//    _barWUnselectedView.backgroundColor = self.colorForWUnselectedBar;
+//    _barWSelectedView.backgroundColor = self.colorForWSelectedBar;
 }
 
 - (UIColor *)colorForCurrentStateInDictionary:(NSDictionary *)dictionary
@@ -215,6 +140,11 @@
     return _preferredBarWSelectedColor ?: _appearance.BarWSelectedColor;
 }
 
+- (UIColor *)colorForWNoWorkBar
+{
+    return _preferredBarWNoWorkColor ?: _appearance.BarWNoWorkColor;
+}
+
 - (CGFloat)borderRadius
 {
     return _preferredBorderRadius >= 0 ? _preferredBorderRadius : _appearance.borderRadius;
@@ -239,22 +169,24 @@
 }
 
 OFFSET_PROPERTY(preferredTitleOffset, PreferredTitleOffset, _appearance.titleOffset);
-OFFSET_PROPERTY(preferredSubtitleOffset, PreferredSubtitleOffset, _appearance.subtitleOffset);
-OFFSET_PROPERTY(preferredImageOffset, PreferredImageOffset, _appearance.imageOffset);
-OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOffset);
 
 #undef OFFSET_PROPERTY
 
 -(void)setProgressBar:(CGFloat)progressBar{
     [self layoutIfNeeded];
     CGFloat prg = _barWUnselectedView.frame.size.width * (1 - progressBar);
-    NSLog(@"Width = %f,Value = %f",_barWUnselectedView.frame.size.width,prg);
-//    int a = arc4random_uniform(10);
-//    if(a%2 == 0){
-//        _barWSelectedViewTrailConstraint.constant = prg;
-//    }else{
         _barWSelectedViewTrailConstraint.constant = prg;
-//    }
+    
+    if(progressBar<0){
+        _barWSelectedViewTrailConstraint.constant = 0; //put any dummy value doesnt matter actually
+        _barWUnselectedView.backgroundColor = self.colorForWNoWorkBar;
+        _barWSelectedView.backgroundColor = self.colorForWNoWorkBar;
+    }else{
+        _barWUnselectedView.backgroundColor = self.colorForWUnselectedBar;
+        _barWSelectedView.backgroundColor = self.colorForWSelectedBar;
+        CGFloat prg = _barWUnselectedView.frame.size.width * (1 - progressBar);
+        _barWSelectedViewTrailConstraint.constant = prg;
+    }
 }
 
 - (void)setCalendar:(FSCalendar *)calendar
