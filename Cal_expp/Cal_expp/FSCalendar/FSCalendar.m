@@ -522,8 +522,14 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         FSCalendarWCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:FSCalendarWeekNoCellReuseIdentifier forIndexPath:indexPath];
         cell.calendar = self;
         cell.titleLabel.text = [NSString stringWithFormat:@"%ld",(long)weekno.integerValue];
-        cell.progressBar = ((arc4random_uniform(10))/10.0)>0.5?-1:0.5;
-        [cell configureAppearance];
+        cell.progressBar = (arc4random_uniform(10))/10.0; // [_selectedWeekno containsObject:weekno]?1:0;
+//        [cell configureAppearance];
+        cell.selected = [_selectedWeekno containsObject:weekno];
+        if (cell.selected) {
+            [self.wCollectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        } else {
+            [self.wCollectionView deselectItemAtIndexPath:indexPath animated:NO];
+        }
         return cell;
     }
     
@@ -613,8 +619,15 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         FSCalendarWCell *cell = (FSCalendarWCell *)[collectionView cellForItemAtIndexPath:indexPath];
         NSNumber *weekno = [self.calculator weeknoForIndexPath:indexPath fromPage:self.currentPage];
         if (![_selectedWeekno containsObject:weekno]) {
+            [_selectedWeekno removeAllObjects];
+            [_selectedWeekno addObject:weekno];
             cell.selected = YES;
-            [cell performSelecting];
+//            [cell performSelecting];
+        }
+        if(_selectedDates.count > 0){
+            NSDate *date = [_selectedDates firstObject];
+            NSIndexPath *indexpath = [self.calculator indexPathForDate:date];
+            [self collectionView:self.collectionView didDeselectItemAtIndexPath:indexpath];
         }
         return ;
     }
@@ -633,6 +646,11 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     if (![_selectedDates containsObject:selectedDate]) {
         cell.selected = YES;
         [cell performSelecting];
+    }
+    if(_selectedWeekno.count > 0){
+        NSNumber *weekno = [_selectedWeekno firstObject];
+        NSIndexPath *indexpath = [self.calculator indexPathForWeekno:weekno fromPage:self.currentPage];
+        [self collectionView:self.wCollectionView didDeselectItemAtIndexPath:indexpath];
     }
     [self enqueueSelectedDate:selectedDate];
     [self.delegateProxy calendar:self didSelectDate:selectedDate atMonthPosition:monthPosition];
@@ -657,8 +675,10 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 {
     if(collectionView == _wCollectionView){
         FSCalendarWCell *cell = (FSCalendarWCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        NSNumber *weekno = [self.calculator weeknoForIndexPath:indexPath fromPage:self.currentPage];
+        [_selectedWeekno removeAllObjects];
         cell.selected = NO;
-        [cell configureAppearance];
+//        [cell configureAppearance];
         return ;
     }
     
@@ -677,11 +697,9 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     cell.selected = NO;
     [cell configureAppearance];
     
-    [_selectedDates removeObject:selectedDate];
+    [_selectedDates removeAllObjects];
     [self.delegateProxy calendar:self didDeselectDate:selectedDate atMonthPosition:monthPosition];
     [self deselectCounterpartDate:selectedDate];
-    [_selectedWeekno removeAllObjects];
-    
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
@@ -1699,12 +1717,12 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 {
     if (!self.allowsMultipleSelection) {
         [_selectedDates removeAllObjects];
-        [_selectedWeekno removeAllObjects];
+//        [_selectedWeekno removeAllObjects];
     }
     if (![_selectedDates containsObject:date]) {
         [_selectedDates addObject:date];
-        NSInteger weekno = [self.gregorian component:NSCalendarUnitWeekOfYear fromDate:date];
-        [_selectedWeekno addObject:[NSNumber numberWithInteger:weekno]];
+//        NSInteger weekno = [self.gregorian component:NSCalendarUnitWeekOfYear fromDate:date];
+//        [_selectedWeekno addObject:[NSNumber numberWithInteger:weekno]];
     }
 }
 

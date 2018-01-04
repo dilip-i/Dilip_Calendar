@@ -63,6 +63,15 @@
     [super prepareForReuse];
 }
 
+-(void)setSelected:(BOOL)selected{
+    if(self.selected != selected){
+        super.selected = selected;
+//        if(selected){
+            [self performSelecting];
+//        }
+    }
+}
+
 #pragma mark - Public
 
 - (void)performSelecting

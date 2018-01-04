@@ -112,6 +112,13 @@
     return [self indexPathForDate:date atMonthPosition:FSCalendarMonthPositionCurrent scope:self.calendar.transitionCoordinator.representingScope];
 }
 
+- (NSIndexPath *)indexPathForWeekno:(NSNumber *)weekno fromPage:(NSDate*)cPage
+{
+    NSInteger section = 0;
+    NSInteger item = weekno.integerValue - [self.gregorian component:NSCalendarUnitWeekOfYear fromDate:cPage];
+    return  [NSIndexPath indexPathForItem:item inSection:section];
+}
+
 - (NSIndexPath *)indexPathForDate:(NSDate *)date scope:(FSCalendarScope)scope
 {
     return [self indexPathForDate:date atMonthPosition:FSCalendarMonthPositionCurrent scope:scope];

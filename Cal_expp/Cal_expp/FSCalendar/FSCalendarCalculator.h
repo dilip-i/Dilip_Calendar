@@ -27,6 +27,7 @@ typedef struct FSCalendarCoordinate FSCalendarCoordinate;
 
 - (NSDate *)dateForIndexPath:(NSIndexPath *)indexPath;
 - (NSNumber *)weeknoForIndexPath:(NSIndexPath *)indexPath fromPage:(NSDate*)cPage;
+- (NSIndexPath *)indexPathForWeekno:(NSNumber *)weekno fromPage:(NSDate*)cPage;
 - (NSDate *)dateForIndexPath:(NSIndexPath *)indexPath scope:(FSCalendarScope)scope;
 - (NSIndexPath *)indexPathForDate:(NSDate *)date;
 - (NSIndexPath *)indexPathForDate:(NSDate *)date scope:(FSCalendarScope)scope;
