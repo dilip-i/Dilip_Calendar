@@ -52,9 +52,21 @@ extension ViewController : FSCalendarDelegate {
         self.view.layoutIfNeeded()
     }
     
+    func calendar(_ calendar: FSCalendar, didSelectWeekno weekno: NSNumber, at monthPosition: FSCalendarMonthPosition) {
+        print("calendar did select week no \(weekno.intValue)")
+    }
+    
 }
 
 extension ViewController : FSCalendarDataSource {
+    
+    func calendar(_ calendar: FSCalendar, progressFor date: Date) -> CGFloat {
+        return 0.5; // return -1 to hide the bar
+    }
+    
+    func calendar(_ calendar: FSCalendar, progressForWeekno weekno: NSNumber) -> CGFloat {
+        return -1; // return -1 to hide the bar
+    }
     
     func maximumDate(for calendar: FSCalendar) -> Date {
         return Calendar.current.date(byAdding: .year, value: 2, to: Date())!

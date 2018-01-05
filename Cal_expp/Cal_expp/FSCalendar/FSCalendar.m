@@ -522,7 +522,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         FSCalendarWCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:FSCalendarWeekNoCellReuseIdentifier forIndexPath:indexPath];
         cell.calendar = self;
         cell.titleLabel.text = [NSString stringWithFormat:@"%ld",(long)weekno.integerValue];
-        cell.progressBar = (arc4random_uniform(10))/10.0; // [_selectedWeekno containsObject:weekno]?1:0;
+        cell.progressBar = [self.dataSourceProxy calendar:self progressForWeekno:weekno] ?: -1;
 //        [cell configureAppearance];
         cell.selected = [_selectedWeekno containsObject:weekno];
         if (cell.selected) {
@@ -561,7 +561,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:FSCalendarDefaultCellReuseIdentifier forIndexPath:indexPath];
     }
     [self reloadDataForCell:cell atIndexPath:indexPath];
-    cell.progressBar = ((arc4random_uniform(10))/10.0)>0.5?-1:0.5;
+    cell.progressBar = [self.dataSourceProxy calendar:self progressForDate:date] ?: -1;
     return cell;
 }
 
@@ -629,6 +629,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
             NSIndexPath *indexpath = [self.calculator indexPathForDate:date];
             [self collectionView:self.collectionView didDeselectItemAtIndexPath:indexpath];
         }
+        [self.delegateProxy calendar:self didSelectWeekno:weekno atMonthPosition:nil];
         return ;
     }
     NSDate *selectedDate = [self.calculator dateForIndexPath:indexPath];

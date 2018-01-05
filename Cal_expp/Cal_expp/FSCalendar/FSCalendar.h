@@ -65,6 +65,16 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 /**
+ * Asks the dataSource for progressBar for the specific weekno
+ */
+- (CGFloat)calendar:(FSCalendar *)calendar progressForWeekno:(NSNumber *)weekno;
+
+/**
+ * Asks the dataSource for progressBar for the specific date
+ */
+- (CGFloat)calendar:(FSCalendar *)calendar progressForDate:(NSDate *)date;
+
+/**
  * Asks the dataSource for a title for the specific date as a replacement of the day text
  */
 - (nullable NSString *)calendar:(FSCalendar *)calendar titleForDate:(NSDate *)date;
@@ -127,6 +137,11 @@ NS_ASSUME_NONNULL_BEGIN
  Tells the delegate a date in the calendar is selected by tapping.
  */
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition;
+
+/**
+ Tells the delegate a weekno in the calendar is selected by tapping.
+ */
+- (void)calendar:(FSCalendar *)calendar didSelectWeekno:(NSNumber *)weekno atMonthPosition:(FSCalendarMonthPosition)monthPosition;
 
 /**
  Asks the delegate whether the specific date is allowed to be deselected by tapping.
