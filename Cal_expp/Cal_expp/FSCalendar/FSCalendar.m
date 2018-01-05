@@ -1208,12 +1208,14 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 - (void)reloadData
 {
     _needsRequestingBoundingDates = YES;
-    if ([self requestBoundingDatesIfNecessary] || !self.collectionView.indexPathsForVisibleItems.count) {
+    if ([self requestBoundingDatesIfNecessary] || !self.collectionView.indexPathsForVisibleItems.count || !self.wCollectionView.indexPathsForVisibleItems.count) {
         [self invalidateHeaders];
         [self.collectionView reloadData];
+        [self.wCollectionView reloadData];
     } else {
         [UIView performWithoutAnimation:^{
             [self.collectionView reloadItemsAtIndexPaths:self.collectionView.indexPathsForVisibleItems];
+            [self.wCollectionView reloadItemsAtIndexPaths:self.wCollectionView.indexPathsForVisibleItems];
         }];
     }
 }
