@@ -25,5 +25,6 @@
 #import "FSCalendarStickyHeader.h"
 #import "FSCalendarTransitionCoordinator.h"
 #import "FSCalendarWeekdayView.h"
+#import "FSCalendarWeekObject.h"
 
 #endif /* Cal_expp_Bridging_Header_h */

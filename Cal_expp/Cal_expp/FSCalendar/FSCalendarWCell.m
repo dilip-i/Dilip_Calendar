@@ -186,16 +186,16 @@ OFFSET_PROPERTY(preferredTitleOffset, PreferredTitleOffset, _appearance.titleOff
     CGFloat prg = _barWUnselectedView.frame.size.width * (1 - progressBar);
         _barWSelectedViewTrailConstraint.constant = prg;
     
-    if(progressBar<0){
-        _barWSelectedViewTrailConstraint.constant = 0; //put any dummy value doesnt matter actually
-        _barWUnselectedView.backgroundColor = self.colorForWNoWorkBar;
-        _barWSelectedView.backgroundColor = self.colorForWNoWorkBar;
-    }else{
-        _barWUnselectedView.backgroundColor = self.colorForWUnselectedBar;
-        _barWSelectedView.backgroundColor = self.colorForWSelectedBar;
-        CGFloat prg = _barWUnselectedView.frame.size.width * (1 - progressBar);
-        _barWSelectedViewTrailConstraint.constant = prg;
-    }
+//    if(progressBar<0){
+//        _barWSelectedViewTrailConstraint.constant = 0; //put any dummy value doesnt matter actually
+//        _barWUnselectedView.backgroundColor = self.colorForWNoWorkBar;
+//        _barWSelectedView.backgroundColor = self.colorForWNoWorkBar;
+//    }else{
+//        _barWUnselectedView.backgroundColor = self.colorForWUnselectedBar;
+//        _barWSelectedView.backgroundColor = self.colorForWSelectedBar;
+//        CGFloat prg = _barWUnselectedView.frame.size.width * (1 - progressBar);
+//        _barWSelectedViewTrailConstraint.constant = prg;
+//    }
 }
 
 - (void)setCalendar:(FSCalendar *)calendar

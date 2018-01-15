@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F009475200AA54A00FBD704 /* FSCalendarWeekObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F009474200AA54A00FBD704 /* FSCalendarWeekObject.m */; };
 		2F4E6BFA1FD96AF90057AF60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E6BF91FD96AF90057AF60 /* AppDelegate.swift */; };
 		2F4E6BFC1FD96AF90057AF60 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E6BFB1FD96AF90057AF60 /* ViewController.swift */; };
 		2F4E6BFF1FD96AF90057AF60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F4E6BFD1FD96AF90057AF60 /* Main.storyboard */; };
@@ -37,6 +38,8 @@
 /* Begin PBXFileReference section */
 		003D997EF26D59DDF0C258B4 /* Pods-Cal_expp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cal_expp.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cal_expp/Pods-Cal_expp.release.xcconfig"; sourceTree = "<group>"; };
 		178E9E927C5DA4B5343C542F /* Pods_Cal_expp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cal_expp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F009473200AA54A00FBD704 /* FSCalendarWeekObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FSCalendarWeekObject.h; sourceTree = "<group>"; };
+		2F009474200AA54A00FBD704 /* FSCalendarWeekObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FSCalendarWeekObject.m; sourceTree = "<group>"; };
 		2F4E6BF61FD96AF90057AF60 /* Cal_expp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cal_expp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F4E6BF91FD96AF90057AF60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2F4E6BFB1FD96AF90057AF60 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +139,8 @@
 			children = (
 				2FD4D12A1FE1110E00B475F7 /* FSCalendar.h */,
 				2FD4D12B1FE1110E00B475F7 /* FSCalendar.m */,
+				2F009473200AA54A00FBD704 /* FSCalendarWeekObject.h */,
+				2F009474200AA54A00FBD704 /* FSCalendarWeekObject.m */,
 				2FD4D12C1FE1110E00B475F7 /* FSCalendarAppearance.h */,
 				2FD4D12D1FE1110E00B475F7 /* FSCalendarAppearance.m */,
 				2FD4D12E1FE1110E00B475F7 /* FSCalendarCalculator.h */,
@@ -272,6 +277,7 @@
 				2F4E6BFC1FD96AF90057AF60 /* ViewController.swift in Sources */,
 				2FD4D1561FE1110E00B475F7 /* FSCalendarScopeHandle.m in Sources */,
 				2FD4D14E1FE1110E00B475F7 /* FSCalendarCell.m in Sources */,
+				2F009475200AA54A00FBD704 /* FSCalendarWeekObject.m in Sources */,
 				2FD4D1521FE1110E00B475F7 /* FSCalendarDelegationFactory.m in Sources */,
 				2FD4D1531FE1110E00B475F7 /* FSCalendarDelegationProxy.m in Sources */,
 				2FD4D1571FE1110E00B475F7 /* FSCalendarStickyHeader.m in Sources */,

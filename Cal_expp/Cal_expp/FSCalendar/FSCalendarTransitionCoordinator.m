@@ -434,6 +434,10 @@
             NSDate *focusedDate = ({
                 NSArray<NSDate *> *candidates = ({
                     NSMutableArray *dates = self.calendar.selectedDates.reverseObjectEnumerator.allObjects.mutableCopy;
+                    if(self.calendar.selectedWeeknos.count>0){
+                        NSDate *fstDateOfweek = [self.calendar getStartDateFromWeekno:((FSCalendarWeekObject*)self.calendar.selectedWeeknos.firstObject).week inYr:((FSCalendarWeekObject*)self.calendar.selectedWeeknos.firstObject).yr];
+                        [dates addObject:fstDateOfweek];
+                    }
                     if (self.calendar.today) {
                         [dates addObject:self.calendar.today];
                     }
@@ -472,6 +476,10 @@
             NSDate *focusedDate = ({
                 NSArray<NSDate *> *candidates = ({
                     NSMutableArray *dates = self.calendar.selectedDates.reverseObjectEnumerator.allObjects.mutableCopy;
+                    if(self.calendar.selectedWeeknos.count>0){
+                        NSDate *fstDateOfweek = [self.calendar getStartDateFromWeekno:((FSCalendarWeekObject*)self.calendar.selectedWeeknos.firstObject).week inYr:((FSCalendarWeekObject*)self.calendar.selectedWeeknos.firstObject).yr];
+                        [dates addObject:fstDateOfweek];
+                    }
                     if (self.calendar.today) {
                         [dates addObject:self.calendar.today];
                     }

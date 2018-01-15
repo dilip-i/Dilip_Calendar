@@ -100,11 +100,12 @@
     return [self dateForIndexPath:indexPath scope:self.calendar.transitionCoordinator.representingScope];
 }
 
-- (NSNumber *)weeknoForIndexPath:(NSIndexPath *)indexPath fromPage:(NSDate*)cPage
+- (FSCalendarWeekObject*)weeknoForIndexPath:(NSIndexPath *)indexPath fromPage:(NSDate*)cPage
 {
     if (!indexPath) return nil;
     NSInteger weekno = [self.gregorian component:NSCalendarUnitWeekOfYear fromDate:cPage] + indexPath.row;
-    return [NSNumber numberWithInteger:weekno];
+    NSInteger yr = [self.calendar.gregorian getYearFromDate:cPage];
+    return [[FSCalendarWeekObject alloc] initWithWeekno:weekno yr:yr];
 }
 
 - (NSIndexPath *)indexPathForDate:(NSDate *)date
@@ -112,10 +113,10 @@
     return [self indexPathForDate:date atMonthPosition:FSCalendarMonthPositionCurrent scope:self.calendar.transitionCoordinator.representingScope];
 }
 
-- (NSIndexPath *)indexPathForWeekno:(NSNumber *)weekno fromPage:(NSDate*)cPage
+- (NSIndexPath *)indexPathForWeekno:(NSInteger)weekno fromPage:(NSDate*)cPage
 {
     NSInteger section = 0;
-    NSInteger item = weekno.integerValue - [self.gregorian component:NSCalendarUnitWeekOfYear fromDate:cPage];
+    NSInteger item = weekno - [self.gregorian component:NSCalendarUnitWeekOfYear fromDate:cPage];
     return  [NSIndexPath indexPathForItem:item inSection:section];
 }
 

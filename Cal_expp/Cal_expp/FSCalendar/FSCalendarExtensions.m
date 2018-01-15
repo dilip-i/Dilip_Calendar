@@ -221,6 +221,27 @@
     return components;
 }
 
+-(NSInteger)getYearFromDate:(NSDate*)date{
+    if(!date) return -1;
+    NSDateComponents *components = [self components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    NSInteger yr = [components year];
+    return yr;
+}
+
+-(NSInteger)getMonthFromDate:(NSDate*)date{
+    if(!date) return -1;
+    NSDateComponents *components = [self components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    NSInteger mnth = [components month];
+    return mnth;
+}
+
+-(NSInteger)getWeekNoFromDate:(NSDate*)date{
+    if(!date) return -1;
+    NSDateComponents *components = [self components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitWeekOfYear fromDate:date];
+    NSInteger weekno = [components weekOfYear];
+    return weekno;
+}
+
 @end
 
 @implementation NSMapTable (FSCalendarExtensions)

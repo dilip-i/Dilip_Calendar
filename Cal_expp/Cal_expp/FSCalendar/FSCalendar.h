@@ -22,6 +22,7 @@
 #import "FSCalendarWCell.h"
 #import "FSCalendarWeekdayView.h"
 #import "FSCalendarHeaderView.h"
+#import "FSCalendarWeekObject.h"
 
 //! Project version number for FSCalendar.
 FOUNDATION_EXPORT double FSCalendarVersionNumber;
@@ -67,12 +68,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Asks the dataSource for progressBar for the specific weekno
  */
-- (CGFloat)calendar:(FSCalendar *)calendar progressForWeekno:(NSNumber *)weekno;
+- (void)calendar:(FSCalendar *)calendar cellFor:(FSCalendarWCell*)wCell Week:(NSInteger)weekno Inyr:(NSInteger)yr;
 
 /**
  * Asks the dataSource for progressBar for the specific date
  */
-- (CGFloat)calendar:(FSCalendar *)calendar progressForDate:(NSDate *)date;
+- (void)calendar:(FSCalendar *)calendar cellFor:(FSCalendarCell*)cell Date:(NSDate *)date;
 
 /**
  * Asks the dataSource for a title for the specific date as a replacement of the day text
@@ -141,7 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tells the delegate a weekno in the calendar is selected by tapping.
  */
-- (void)calendar:(FSCalendar *)calendar didSelectWeekno:(NSNumber *)weekno atMonthPosition:(FSCalendarMonthPosition)monthPosition;
+- (void)calendar:(FSCalendar *)calendar didSelectWeekno:(NSInteger)weekno :(NSDate*)startDate :(NSDate*)enddate atMonthPosition:(FSCalendarMonthPosition)monthPosition;
 
 /**
  Asks the delegate whether the specific date is allowed to be deselected by tapping.
@@ -168,6 +169,12 @@ NS_ASSUME_NONNULL_BEGIN
  Tells the delegate the calendar is about to change the current page.
  */
 - (void)calendarCurrentPageDidChange:(FSCalendar *)calendar;
+
+//Tells the delegate that week item is long pressed
+- (void)didLongPressedCell:(FSCalendarCell *)cell Date:(NSDate*)date;
+
+//Tells the delegate that date item is long pressed
+- (void)didLongPressedCell:(FSCalendarWCell *)cell Weekno:(NSInteger)weekno StartDate:(NSDate*)stDate;
 
 /**
  These functions are deprecated
@@ -351,6 +358,8 @@ IB_DESIGNABLE
  */
 @property (readonly, nonatomic) UILongPressGestureRecognizer *swipeToChooseGesture;
 
+@property (readonly, nonatomic) UILongPressGestureRecognizer *longPressItem;
+
 /**
  * The placeholder type of FSCalendar. Default is FSCalendarPlaceholderTypeFillSixRows.
  *
@@ -451,11 +460,17 @@ IB_DESIGNABLE
 @property (nullable, readonly, nonatomic) NSDate *selectedDate;
 
 /**
+A weekno object identifying the section of the selected weekno. (read-only)
+*/
+@property (nullable, readonly, nonatomic) FSCalendarWeekObject *selectedWeekno;
+
+/**
  The dates representing the selected dates. (read-only)
  */
 @property (readonly, nonatomic) NSArray<NSDate *> *selectedDates;
 
-@property (readonly, nonatomic) NSArray<NSNumber *> *selectedWeekno;
+//FSCalendarWeekObject containing week and yr "week", "yr"
+@property (readonly, nonatomic) NSArray<FSCalendarWeekObject *> *selectedWeeknos;
 
 /**
  Reload the dates and appearance of the calendar.
@@ -468,14 +483,19 @@ IB_DESIGNABLE
  @param scope The target scope to change.
  @param animated YES if you want to animate the scoping; NO if the change should be immediate.
  */
+
+-(NSDate*)getStartDateFromWeekno:(NSInteger)weekno inYr:(NSInteger)yr;
+
 - (void)setScope:(FSCalendarScope)scope animated:(BOOL)animated;
 
-/**
- Selects a given date in the calendar.
- 
- @param date A date in the calendar.
- */
+/*Selects a given weekno in the calendar.*/
+-(void)selectWeekno:(NSInteger)no inYr:(NSInteger)yr;
+
+/*Selects a given date in the calendar.*/
 - (void)selectDate:(nullable NSDate *)date;
+
+/*Selects a given weekno in the calendar, optionally scrolling the date to visible area.*/
+-(void)selectWeekno:(NSInteger)no inYr:(NSInteger)yr scrollToWeekno:(BOOL)scrollToWeekno;
 
 /**
  Selects a given date in the calendar, optionally scrolling the date to visible area.
@@ -566,6 +586,8 @@ IB_DESIGNABLE
  @param sender A UIPanGestureRecognizer instance which controls the scope of the calendar
  */
 - (void)handleScopeGesture:(UIPanGestureRecognizer *)sender;
+
+- (void)handlelongPressItem:(UILongPressGestureRecognizer *)sender;
 
 @end
 

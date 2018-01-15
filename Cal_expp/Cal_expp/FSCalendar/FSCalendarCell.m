@@ -263,15 +263,15 @@ OFFSET_PROPERTY(preferredTitleOffset, PreferredTitleOffset, _appearance.titleOff
 
 -(void)setProgressBar:(CGFloat)progressBar{
     [self layoutIfNeeded];
-    if(progressBar<0){
-        _barSelectedViewTrailConstraint.constant = 0; //put any dummy value doesnt matter actually
-        _barUnselectedView.backgroundColor = self.colorForNoWorkBar;
-        _barSelectedView.backgroundColor = self.colorForNoWorkBar;
-    }else{
-        _barUnselectedView.backgroundColor = self.colorForUnselectedBar;
-        _barSelectedView.backgroundColor = self.colorForSelectedBar;
+//    if(progressBar<0){
+//        _barSelectedViewTrailConstraint.constant = 0; //put any dummy value doesnt matter actually
+//        _barUnselectedView.backgroundColor = self.colorForNoWorkBar;
+//        _barSelectedView.backgroundColor = self.colorForNoWorkBar;
+//    }else{
+//        _barUnselectedView.backgroundColor = self.colorForUnselectedBar;
+//        _barSelectedView.backgroundColor = self.colorForSelectedBar;
         _barSelectedViewTrailConstraint.constant = _barUnselectedView.frame.size.width * (1 - progressBar);
-    }
+//    }
 }
 
 - (void)setCalendar:(FSCalendar *)calendar
