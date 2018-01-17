@@ -22,6 +22,8 @@ class ViewController: UIViewController {
         let itemTapGesture = UILongPressGestureRecognizer(target: self.calendar, action: #selector(self.calendar.handlelongPressItem(_:)))
         self.calendar.addGestureRecognizer(itemTapGesture)
         
+        self.calendar.wFont = UIFont.systemFont(ofSize: 40);
+        self.calendar.weekDayTextFont = UIFont.systemFont(ofSize: 10);
         
         
     }
@@ -37,8 +39,8 @@ class ViewController: UIViewController {
     }()
     
     @IBAction func btnclk(sender:AnyObject){
-//        self.calendar.select(Calendar.current.date(byAdding: .day, value: 100, to: Date()))
-        self.calendar.selectWeekno(17, inYr: 2018, scrollToWeekno: true);
+        self.calendar.select(Calendar.current.date(byAdding: .day, value: 100, to: Date()))
+//        self.calendar.selectWeekno(17, inYr: 2018, scrollToWeekno: true);
     }
 
 }

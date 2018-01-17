@@ -40,11 +40,14 @@ typedef NS_ENUM(NSUInteger, FSCalendarSeparators) {
 
 typedef NS_OPTIONS(NSUInteger, FSCalendarCaseOptions) {
     FSCalendarCaseOptionsHeaderUsesDefaultCase      = 0,
-    FSCalendarCaseOptionsHeaderUsesUpperCase        = 1,
+    FSCalendarCaseOptionsHeaderUsesUpperCase        = 1
+};
+
+typedef NS_OPTIONS(NSUInteger, FSCalendarWeekDayTextCaseOptions) {
     
-    FSCalendarCaseOptionsWeekdayUsesDefaultCase     = 0 << 4,
-    FSCalendarCaseOptionsWeekdayUsesUpperCase       = 1 << 4,
-    FSCalendarCaseOptionsWeekdayUsesSingleUpperCase = 2 << 4,
+    FSCalendarCaseOptionsWeekdayUsesDefaultCase     = 0,
+    FSCalendarCaseOptionsWeekdayUsesUpperCase       = 1,
+    FSCalendarCaseOptionsWeekdayUsesSingleUpperCase = 2
 };
 
 /**
@@ -82,12 +85,24 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarCaseOptions) {
 /**
  * The color of weekday text.
  */
-@property (strong, nonatomic) UIColor  *weekdayTextColor;
+@property (strong, nonatomic) UIColor  *weekdayNoColor;
 
 /**
  * The color of month header text.
  */
 @property (strong, nonatomic) UIColor  *headerTitleColor;
+
+//Week day text color
+@property (strong, nonatomic) UIColor  *weekdayTextColor;
+
+//Week day text font
+@property (strong, nonatomic) UIFont  *weekDayTextFont;
+
+// 'w' color
+@property (strong, nonatomic) UIColor  *wColor;
+
+// 'w' font
+@property (strong, nonatomic) UIFont  *wFont;
 
 /**
  * The date format of the month header.
@@ -188,7 +203,7 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarCaseOptions) {
  *
  * @see FSCalendarCaseOptions
  */
-@property (assign, nonatomic) FSCalendarCaseOptions caseOptions;
+@property (assign, nonatomic) FSCalendarWeekDayTextCaseOptions caseOptions;
 
 /**
  * The line integrations for calendar.

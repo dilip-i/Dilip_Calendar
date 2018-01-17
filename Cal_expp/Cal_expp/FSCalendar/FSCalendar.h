@@ -373,6 +373,12 @@ IB_DESIGNABLE
 @property (assign, nonatomic) FSCalendarPlaceholderType placeholderType;
 #endif
 
+#if TARGET_INTERFACE_BUILDER
+@property (assign, nonatomic) IBInspectable NSUInteger weekdayTextcase;
+#else
+@property (assign, nonatomic) FSCalendarWeekDayTextCaseOptions weekdayTextcase;
+#endif
+
 /**
  The index of the first weekday of the calendar. Give a '2' to make Monday in the first column.
  */
@@ -488,11 +494,14 @@ A weekno object identifying the section of the selected weekno. (read-only)
 
 - (void)setScope:(FSCalendarScope)scope animated:(BOOL)animated;
 
-/*Selects a given weekno in the calendar.*/
--(void)selectWeekno:(NSInteger)no inYr:(NSInteger)yr;
-
 /*Selects a given date in the calendar.*/
 - (void)selectDate:(nullable NSDate *)date;
+
+//week day font like Mon, Tue
+@property (strong, nonatomic) UIFont  *weekDayTextFont;
+
+//'w' font
+@property (strong, nonatomic) UIFont  *wFont;
 
 /*Selects a given weekno in the calendar, optionally scrolling the date to visible area.*/
 -(void)selectWeekno:(NSInteger)no inYr:(NSInteger)yr scrollToWeekno:(BOOL)scrollToWeekno;
@@ -605,7 +614,10 @@ IB_DESIGNABLE
 
 @property (strong, nonatomic) IBInspectable UIColor  *eventDefaultColor;
 @property (strong, nonatomic) IBInspectable UIColor  *eventSelectionColor;
+@property (strong, nonatomic) IBInspectable UIColor  *weekdayNoColor;
+
 @property (strong, nonatomic) IBInspectable UIColor  *weekdayTextColor;
+@property (strong, nonatomic) IBInspectable UIColor  *wColor;
 
 @property (strong, nonatomic) IBInspectable UIColor  *headerTitleColor;
 @property (strong, nonatomic) IBInspectable NSString *headerDateFormat;

@@ -100,20 +100,20 @@
 {
     BOOL useVeryShortWeekdaySymbols = (self.calendar.appearance.caseOptions & (15<<4) ) == FSCalendarCaseOptionsWeekdayUsesSingleUpperCase;
     NSArray *weekdaySymbols = useVeryShortWeekdaySymbols ? self.calendar.gregorian.veryShortStandaloneWeekdaySymbols : self.calendar.gregorian.shortStandaloneWeekdaySymbols;
-    BOOL useDefaultWeekdayCase = (self.calendar.appearance.caseOptions & (15<<4) ) == FSCalendarCaseOptionsWeekdayUsesDefaultCase;
+    BOOL useDefaultWeekdayCase = self.calendar.appearance.caseOptions  == FSCalendarCaseOptionsWeekdayUsesDefaultCase;
     
     for (NSInteger i = 1; i < self.weekdayPointers.count; i++) {
         NSInteger index = (i-1 + self.calendar.firstWeekday-1) % 7;
         UILabel *label = [self.weekdayPointers pointerAtIndex:i];
-        label.font = self.calendar.appearance.weekdayFont;
+        label.font = self.calendar.appearance.weekDayTextFont;
         label.textColor = self.calendar.appearance.weekdayTextColor;
         label.text = useDefaultWeekdayCase ? weekdaySymbols[index] : [weekdaySymbols[index] uppercaseString];
     }
     
     UILabel *label = [self.weekdayPointers pointerAtIndex:0];
-    label.font = self.calendar.appearance.weekdayFont;
-    label.textColor = self.calendar.appearance.weekdayTextColor;
-    label.text = useDefaultWeekdayCase ? @"W" : @"W";
+    label.font = self.calendar.appearance.wFont;
+    label.textColor = self.calendar.appearance.wColor;
+    label.text = useDefaultWeekdayCase ? @"w" : @"W";
 
 }
 

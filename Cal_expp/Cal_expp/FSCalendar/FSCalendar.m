@@ -196,6 +196,8 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     _dataSourceProxy = [FSCalendarDelegationFactory dataSourceProxy];
     _delegateProxy = [FSCalendarDelegationFactory delegateProxy];
     
+    _weekdayTextcase = FSCalendarCaseOptionsWeekdayUsesUpperCase; //Default to 1
+    
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectZero];
     contentView.backgroundColor = [UIColor clearColor];
     [self addSubview:contentView];
@@ -623,20 +625,6 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         FSCalendarWCell *cell = (FSCalendarWCell *)[collectionView cellForItemAtIndexPath:indexPath];
        FSCalendarWeekObject *weekno = [self.calculator weeknoForIndexPath:indexPath fromPage:self.currentPage];
         [self selectWeekno:weekno.week inYr:weekno.yr scrollToWeekno:NO];
-//        FSCalendarWeekObject *weekObj = (FSCalendarWeekObject*)(_selectedWeeknos.firstObject);
-//        if (!(weekObj.week == weekno.week) || !(weekObj.yr == weekno.yr)) {
-//            [_selectedWeeknos removeAllObjects];
-//            [_selectedWeeknos addObject:weekno];
-//            cell.selected = YES;
-////            [cell performSelecting];
-//        }
-//        if(_selectedDates.count > 0){
-//            NSDate *date = [_selectedDates firstObject];
-//            [self deselectDate:date];
-////            NSIndexPath *indexpath = [self.calculator indexPathForDate:date];
-////            [self collectionView:self.collectionView didDeselectItemAtIndexPath:indexpath];
-//        }
-        
         NSDate *sDate = [self getStartDateFromWeekno:weekno.week inYr:weekno.yr];
         //Find last Date of week no
         NSDate *eDate = [self.gregorian dateByAddingUnit:NSCalendarUnitDay value:6 toDate:sDate options:0];
@@ -661,10 +649,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         [cell performSelecting];
     }
     if(_selectedWeeknos.count > 0){
-//        NSInteger weekno = ((FSCalendarWeekObject*)(_selectedWeeknos.firstObject)).week;
         [self deselectWeekno:_selectedWeeknos.firstObject];
-//        NSIndexPath *indexpath = [self.calculator indexPathForWeekno:weekno fromPage:self.currentPage];
-//        [self collectionView:self.wCollectionView didDeselectItemAtIndexPath:indexpath];
     }
     [self enqueueSelectedDate:selectedDate];
     [self.delegateProxy calendar:self didSelectDate:selectedDate atMonthPosition:monthPosition];
@@ -888,6 +873,13 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     [self setScope:scope animated:NO];
 }
 
+-(void)setWeekdayTextcase:(FSCalendarWeekDayTextCaseOptions)weekdayTextcase{
+    if(_weekdayTextcase != weekdayTextcase){
+        _weekdayTextcase = weekdayTextcase;
+        self.appearance.caseOptions = weekdayTextcase;
+    }
+}
+
 - (void)setFirstWeekday:(NSUInteger)firstWeekday
 {
     if (_firstWeekday != firstWeekday) {
@@ -1084,6 +1076,20 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         _calendarHeaderView.needsAdjustingMonthPosition = YES;
         _calendarHeaderView.needsAdjustingViewFrame = YES;
         [self setNeedsLayout];
+    }
+}
+
+-(void)setWeekDayTextFont:(UIFont *)weekDayTextFont{
+    if (![_weekDayTextFont isEqual:weekDayTextFont]) {
+        _weekDayTextFont = weekDayTextFont;
+        self.appearance.weekDayTextFont = weekDayTextFont;
+    }
+}
+
+-(void)setWFont:(UIFont *)wFont{
+    if (![_wFont isEqual:wFont]) {
+        _wFont = wFont;
+        self.appearance.wFont = wFont;
     }
 }
 
@@ -1402,6 +1408,10 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         
     } else if (![_collectionView.indexPathsForSelectedItems containsObject:targetIndexPath]) {
         [_collectionView selectItemAtIndexPath:targetIndexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    }
+    
+    if(_selectedWeeknos.count > 0){
+        [self deselectWeekno:_selectedWeeknos.firstObject];
     }
     
     if (scrollToDate) {

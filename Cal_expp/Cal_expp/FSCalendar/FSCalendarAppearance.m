@@ -33,11 +33,15 @@
         _weekdayFont = [UIFont systemFontOfSize:FSCalendarStandardWeekdayTextSize];
         _weeknoFont = [UIFont systemFontOfSize:FSCalendarStandardWeeknoTextSize];
         _headerTitleFont = [UIFont systemFontOfSize:FSCalendarStandardHeaderTextSize];
+        _weekDayTextFont = [UIFont systemFontOfSize:FSCalendarStandardTitleTextSize];
+        _wFont = [UIFont systemFontOfSize:FSCalendarStandardTitleTextSize];
         
         _headerTitleColor = FSCalendarStandardTitleTextColor;
         _headerDateFormat = @"MMMM yyyy";
         _headerMinimumDissolvedAlpha = 0.2;
+        _weekdayNoColor = FSCalendarStandardTitleTextColor;
         _weekdayTextColor = FSCalendarStandardTitleTextColor;
+        _wColor = FSCalendarStandardTitleTextColor;
         _caseOptions = FSCalendarCaseOptionsHeaderUsesDefaultCase|FSCalendarCaseOptionsWeekdayUsesDefaultCase;
         
         _backgroundColors = [NSMutableDictionary dictionaryWithCapacity:11];
@@ -432,11 +436,39 @@
     }
 }
 
-- (void)setWeekdayTextColor:(UIColor *)weekdayTextColor
+- (void)setWeekdayNoColor:(UIColor *)weekdayNoColor
 {
+    if (![_weekdayNoColor isEqual:weekdayNoColor]) {
+        _weekdayNoColor = weekdayNoColor;
+        [self.calendar configureAppearance];
+    }
+}
+
+-(void)setWeekdayTextColor:(UIColor *)weekdayTextColor{
     if (![_weekdayTextColor isEqual:weekdayTextColor]) {
         _weekdayTextColor = weekdayTextColor;
-        [self.calendar configureAppearance];
+        [self.calendar.calendarWeekdayView configureAppearance];
+    }
+}
+
+-(void)setWeekDayTextFont:(UIFont *)weekDayTextFont{
+    if (![_weekDayTextFont isEqual:weekDayTextFont]) {
+        _weekDayTextFont = weekDayTextFont;
+        [self.calendar.calendarWeekdayView configureAppearance];
+    }
+}
+
+-(void)setWColor:(UIColor *)wColor{
+    if (![_wColor isEqual:wColor]) {
+        _wColor = wColor;
+        [self.calendar.calendarWeekdayView configureAppearance];
+    }
+}
+
+-(void)setWFont:(UIFont *)wFont{
+    if (![_wFont isEqual:wFont]) {
+        _wFont = wFont;
+        [self.calendar.calendarWeekdayView configureAppearance];
     }
 }
 
@@ -464,11 +496,11 @@
     }
 }
 
-- (void)setCaseOptions:(FSCalendarCaseOptions)caseOptions
+- (void)setCaseOptions:(FSCalendarWeekDayTextCaseOptions)caseOptions
 {
     if (_caseOptions != caseOptions) {
         _caseOptions = caseOptions;
-        [self.calendar configureAppearance];
+        [self.calendar.calendarWeekdayView configureAppearance];
     }
 }
 
