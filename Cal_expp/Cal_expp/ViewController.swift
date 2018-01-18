@@ -91,6 +91,13 @@ extension ViewController : FSCalendarDataSource {
         }
         //date selection is static and can be set through IB inspectable only
         //cell.titleLabel.font; set fonts
+        if UIScreen.main.traitCollection.userInterfaceIdiom == .pad {
+            cell.titleLabel.font = UIFont(name: "HelveticaNeue-Light",
+                                          size: 22)
+        } else {
+            cell.titleLabel.font = UIFont(name: "HelveticaNeue-Light",
+                                          size: 10)
+        }
         cell.progressBar = 0.1
     }
     
@@ -101,6 +108,13 @@ extension ViewController : FSCalendarDataSource {
         wCell.progressBar = 0.6
         //Weekno selection is static and can be set through IB inspectable only
        // wCell.titleLabel.font; set fonts
+        if UIScreen.main.traitCollection.userInterfaceIdiom == .pad {
+            wCell.titleLabel.font = UIFont(name: "HelveticaNeue-Light",
+                                          size: 22)
+        } else {
+            wCell.titleLabel.font = UIFont(name: "HelveticaNeue-Light",
+                                          size: 10)
+        }
     }
     
     func maximumDate(for calendar: FSCalendar) -> Date {

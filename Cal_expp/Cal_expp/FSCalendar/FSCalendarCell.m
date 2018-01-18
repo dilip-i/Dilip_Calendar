@@ -130,10 +130,10 @@
     if (![textColor isEqual:_titleLabel.textColor]) {
         _titleLabel.textColor = textColor;
     }
-    UIFont *titleFont = self.calendar.appearance.titleFont;
-    if (![titleFont isEqual:_titleLabel.font]) {
-        _titleLabel.font = titleFont;
-    }
+//    UIFont *titleFont = self.calendar.appearance.titleFont;
+//    if (![titleFont isEqual:_titleLabel.font]) {
+//        _titleLabel.font = titleFont;
+//    }
     
     UIColor *borderColor = self.colorForCellBorder;
     UIColor *fillColor = self.colorForCellFill;

@@ -87,10 +87,10 @@
     if (![textColor isEqual:_titleLabel.textColor]) {
         _titleLabel.textColor = textColor;
     }
-    UIFont *titleFont = self.calendar.appearance.weeknoFont;
-    if (![titleFont isEqual:_titleLabel.font]) {
-        _titleLabel.font = titleFont;
-    }
+//    UIFont *titleFont = self.calendar.appearance.weeknoFont;
+//    if (![titleFont isEqual:_titleLabel.font]) {
+//        _titleLabel.font = titleFont;
+//    }
     
 //    _barWUnselectedView.backgroundColor = self.colorForWUnselectedBar;
 //    _barWSelectedView.backgroundColor = self.colorForWSelectedBar;
