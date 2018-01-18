@@ -71,7 +71,7 @@ extension ViewController : FSCalendarDelegate {
     
     func didLongPressedCell(_ cell: FSCalendarCell, date: Date) {
         print("calendar did Pressed date \(self.formatter.string(from: date))")
-        cell.barSelectedView.backgroundColor = UIColor.black;
+        cell.colorForSelectedBar = UIColor.orange;
     }
     
     func didLongPressedCell(_ cell: FSCalendarWCell, weekno: Int, start stDate: Date) {
@@ -83,16 +83,23 @@ extension ViewController : FSCalendarDelegate {
 
 extension ViewController : FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, cellFor cell: FSCalendarCell, date: Date) {
-        cell.barSelectedView.backgroundColor = UIColor.blue
-        cell.barUnselectedView.backgroundColor = UIColor.lightGray
+        cell.colorForSelectedBar = UIColor.black
+        cell.colorForUnselectedBar = UIColor.blue
+        cell.colorForTitleLabel = UIColor.orange
+        if(cell.dateIsToday){
+            cell.colorForTitleLabel = UIColor.blue
+        }
+        //date selection is static and can be set through IB inspectable only
         //cell.titleLabel.font; set fonts
         cell.progressBar = 0.1
     }
     
     func calendar(_ calendar: FSCalendar, cellFor wCell: FSCalendarWCell, week weekno: Int, inyr yr: Int) {
         wCell.barWSelectedView.backgroundColor = UIColor.black
-        wCell.barWUnselectedView.backgroundColor = UIColor.clear
-        wCell.progressBar = 0.8
+        wCell.barWUnselectedView.backgroundColor = UIColor.blue
+        wCell.colorForTitleLabel = UIColor.blue
+        wCell.progressBar = 0.6
+        //Weekno selection is static and can be set through IB inspectable only
        // wCell.titleLabel.font; set fonts
     }
     

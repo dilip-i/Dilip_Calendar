@@ -15,7 +15,7 @@
 @interface FSCalendarWCell ()
 
 @property (readonly, nonatomic) UIColor *colorForCellFill;
-@property (readonly, nonatomic) UIColor *colorForTitleLabel;
+//@property (readonly, nonatomic) UIColor *colorForTitleLabel;
 @property (readonly, nonatomic) UIColor *colorForCellBorder;
 @property (readonly, nonatomic) UIColor *colorForWUnselectedBar;
 @property (readonly, nonatomic) UIColor *colorForWSelectedBar;
@@ -125,9 +125,20 @@
     return self.preferredFillDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.backgroundColors];
 }
 
+-(void)setColorForTitleLabel:(UIColor *)colorForTitleLabel{
+    if(![_preferredTitleDefaultColor isEqual:colorForTitleLabel]){
+        _preferredTitleDefaultColor = colorForTitleLabel;
+        [self configureAppearance];
+    }
+}
+
 - (UIColor *)colorForTitleLabel
 {
-    return [self colorForCurrentStateInDictionary:_appearance.titleColors];
+//    return [self colorForCurrentStateInDictionary:_appearance.titleColors];
+    if (self.selected) {
+        return self.preferredTitleSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
+    }
+    return _preferredTitleDefaultColor;
 }
 
 - (UIColor *)colorForCellBorder

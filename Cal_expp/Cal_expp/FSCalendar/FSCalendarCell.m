@@ -15,12 +15,11 @@
 @interface FSCalendarCell ()
 
 @property (readonly, nonatomic) UIColor *colorForCellFill;
-@property (readonly, nonatomic) UIColor *colorForTitleLabel;
-@property (readonly, nonatomic) UIColor *colorForUnselectedBar;
-@property (readonly, nonatomic) UIColor *colorForSelectedBar;
+//@property (assign, nonatomic) UIColor *colorForTitleLabel;
+//@property (assign, nonatomic) UIColor *colorForUnselectedBar;
+//@property (assign, nonatomic) UIColor *colorForSelectedBar;
 @property (readonly, nonatomic) UIColor *colorForNoWorkBar;
 @property (readonly, nonatomic) UIColor *colorForCellBorder;
-@property (readonly, nonatomic) NSArray<UIColor *> *colorsForEvents;
 @property (readonly, nonatomic) CGFloat borderRadius;
 
 @end
@@ -200,12 +199,20 @@
     return self.preferredFillDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.backgroundColors];
 }
 
+-(void)setColorForTitleLabel:(UIColor *)colorForTitleLabel{
+    if(![_preferredTitleDefaultColor isEqual:colorForTitleLabel]){
+            _preferredTitleDefaultColor = colorForTitleLabel;
+        [self configureAppearance];
+    }
+}
+
 - (UIColor *)colorForTitleLabel
 {
     if (self.selected) {
         return self.preferredTitleSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
     }
-    return self.preferredTitleDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
+//    return self.preferredTitleDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
+    return _preferredTitleDefaultColor;
 }
 
 - (UIColor *)colorForCellBorder
@@ -217,9 +224,24 @@
 }
 
 //Added by Dilip
+
+-(void)setColorForUnselectedBar:(UIColor *)colorForUnselectedBar{
+    if(![_preferredBarUnselectedColor isEqual:colorForUnselectedBar]){
+        _preferredBarUnselectedColor = colorForUnselectedBar;
+        [self configureAppearance];
+    }
+}
+
 - (UIColor *)colorForUnselectedBar
 {
     return _preferredBarUnselectedColor ?: _appearance.BarUnselectedColor;
+}
+
+-(void)setColorForSelectedBar:(UIColor *)colorForSelectedBar{
+    if(![_preferredBarSelectedColor isEqual:colorForSelectedBar]){
+        _preferredBarSelectedColor = colorForSelectedBar;
+        [self configureAppearance];
+    }
 }
 
 - (UIColor *)colorForSelectedBar

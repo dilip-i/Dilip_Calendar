@@ -59,6 +59,11 @@ typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
 @property (assign, nonatomic) UIColor *preferredBarUnselectedColor;
 @property (assign, nonatomic) UIColor *preferredBarSelectedColor;
 @property (assign, nonatomic) UIColor *preferredBarNoWorkColor;
+
+@property (strong, nonatomic) UIColor *colorForTitleLabel;
+@property (assign, nonatomic) UIColor *colorForUnselectedBar;
+@property (assign, nonatomic) UIColor *colorForSelectedBar;
+
 //End Dilip
 
 @property (strong, nonatomic) NSArray<UIColor *> *preferredEventDefaultColors;

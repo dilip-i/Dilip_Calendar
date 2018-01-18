@@ -51,6 +51,9 @@
 @property (assign, nonatomic) UIColor *preferredBarWUnselectedColor;
 @property (assign, nonatomic) UIColor *preferredBarWSelectedColor;
 @property (assign, nonatomic) UIColor *preferredBarWNoWorkColor;
+
+@property (strong, nonatomic) UIColor *colorForTitleLabel;
+
 //End Dilip
 
 @property (assign, nonatomic) CGFloat preferredBorderRadius;
