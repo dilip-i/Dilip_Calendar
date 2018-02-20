@@ -1093,6 +1093,13 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     }
 }
 
+-(void)setWGradientColors:(NSArray *)wGradientColors{
+    if (![_wGradientColors isEqual:wGradientColors]) {
+        _wGradientColors = wGradientColors;
+//        self.appearance.wFont = wFont;
+    }
+}
+
 - (NSDate *)selectedDate
 {
     return _selectedDates.lastObject;
@@ -1273,6 +1280,11 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     NSDate *sDate = [self.gregorian dateFromComponents:comps];
     sDate = [self.gregorian dateByAddingUnit:NSCalendarUnitDay value:daysCorrection toDate:sDate options:0];
     return sDate;
+}
+
+-(FSCalendarWeekObject*)getweekFromStartDate:(NSDate*)date{
+    NSIndexPath *indexPath = [self.calculator indexPathForDate:date];
+    return [self.calculator weeknoForIndexPath:indexPath fromPage:date];
 }
 
 - (void)setScope:(FSCalendarScope)scope animated:(BOOL)animated

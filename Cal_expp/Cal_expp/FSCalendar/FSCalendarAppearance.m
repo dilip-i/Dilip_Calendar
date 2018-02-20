@@ -472,6 +472,13 @@
     }
 }
 
+-(void)setWBackgroundColor:(UIColor *)wBackgroundColor{
+    if (![_wBackgroundColor isEqual:wBackgroundColor]) {
+        _wBackgroundColor = wBackgroundColor;
+        [self.calendar.calendarWeekdayView configureAppearance];
+    }
+}
+
 - (void)setHeaderTitleColor:(UIColor *)color
 {
     if (![_headerTitleColor isEqual:color]) {

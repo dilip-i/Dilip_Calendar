@@ -16,6 +16,8 @@
 @property (strong, nonatomic) NSPointerArray *weekdayPointers;
 @property (weak  , nonatomic) UIView *contentView;
 @property (weak  , nonatomic) FSCalendar *calendar;
+@property (strong  , nonatomic) UIView *gradView;
+@property (strong  , nonatomic) CAGradientLayer *gradient;
 
 - (void)commonInit;
 
@@ -49,8 +51,10 @@
     
     _weekdayPointers = [NSPointerArray weakObjectsPointerArray];
     
+    self.gradView = [[UIView alloc] init];
     UILabel *weekNoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     weekNoLabel.textAlignment = NSTextAlignmentCenter;
+    [self.contentView addSubview:self.gradView];
     [self.contentView addSubview:weekNoLabel];
     [_weekdayPointers addPointer:(__bridge void * _Nullable)(weekNoLabel)];
     
@@ -75,7 +79,15 @@
     CGFloat contentWidth = self.contentView.fs_width;
     FSCalendarSliceCake(contentWidth, count, widths);
     
+    self.gradView.frame = CGRectMake(0, 0, widths[0], self.contentView.fs_height);
+    [_gradient removeFromSuperlayer];
+    _gradient = [CAGradientLayer layer];
+    _gradient.frame = self.gradView.bounds;
+    _gradient.colors = self.calendar.wGradientColors?self.calendar.wGradientColors:@[(id)[UIColor colorWithRed:0.0/255.0 green:116.0/255.0 blue:193.0/255.0 alpha:1.0].CGColor,(id)[UIColor colorWithRed:0.0/255.0 green:108.0/255.0 blue:179.0/255.0 alpha:1.0].CGColor];
+    [self.gradView.layer addSublayer:_gradient];
+    
     CGFloat x = 0;
+    self.gradView.frame = CGRectMake(0, 0, widths[0], self.contentView.fs_height);
     for (NSInteger i = 0; i < count; i++) {
         CGFloat width = widths[i];
         UILabel *label = [self.weekdayPointers pointerAtIndex:i];
@@ -114,6 +126,7 @@
     label.font = self.calendar.appearance.wFont;
     label.textColor = self.calendar.appearance.wColor;
     label.text = useDefaultWeekdayCase ? @"w" : @"W";
+    label.backgroundColor = [UIColor clearColor];
 
 }
 

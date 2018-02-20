@@ -104,6 +104,9 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarWeekDayTextCaseOptions) {
 // 'w' font
 @property (strong, nonatomic) UIFont  *wFont;
 
+// 'w' backGroundcolor
+@property (strong, nonatomic) UIColor  *wBackgroundColor;
+
 /**
  * The date format of the month header.
  */

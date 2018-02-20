@@ -492,6 +492,8 @@ A weekno object identifying the section of the selected weekno. (read-only)
 
 -(NSDate*)getStartDateFromWeekno:(NSInteger)weekno inYr:(NSInteger)yr;
 
+-(FSCalendarWeekObject*)getweekFromStartDate:(NSDate*)date;
+
 - (void)setScope:(FSCalendarScope)scope animated:(BOOL)animated;
 
 /*Selects a given date in the calendar.*/
@@ -502,6 +504,9 @@ A weekno object identifying the section of the selected weekno. (read-only)
 
 //'w' font
 @property (strong, nonatomic) UIFont  *wFont;
+
+//'Array of Gradient colors for w background view' font - values CGcolors
+@property (strong, nonatomic) NSArray  *wGradientColors;
 
 /*Selects a given weekno in the calendar, optionally scrolling the date to visible area.*/
 -(void)selectWeekno:(NSInteger)no inYr:(NSInteger)yr scrollToWeekno:(BOOL)scrollToWeekno;
