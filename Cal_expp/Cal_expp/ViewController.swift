@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         scopeGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handleScopeGesture(sender:)))
 //        self.calendar.addGestureRecognizer(scopeGesture)
         self.view.addGestureRecognizer(scopeGesture)
-//        scopeGesture.delegate = self
+        scopeGesture.delegate = self
         let itemTapGesture = UILongPressGestureRecognizer(target: self.calendar, action: #selector(self.calendar.handlelongPressItem(_:)))
         self.calendar.addGestureRecognizer(itemTapGesture)
         self.calendar.appearance.wBackgroundColor = UIColor.gray;
@@ -43,12 +43,20 @@ class ViewController: UIViewController {
     }()
     
     @IBAction func btnclk(sender:AnyObject){
-        self.calendar.select(Calendar.current.date(byAdding: .day, value: 100, to: Date()))
-//        self.calendar.selectWeekno(17, inYr: 2018, scrollToWeekno: true);
+//        self.calendar.select(Calendar.current.date(byAdding: .day, value: 100, to: Date()))
+        self.calendar.selectWeekno(17, inYr: 2018, scrollToWeekno: true);
     }
     
     @objc func handleScopeGesture(sender:UIPanGestureRecognizer){
-        self.calendar.handleScopeGesture(sender)
+        let view = sender.view
+        let loc = sender.location(in: view)
+        if(self.calendar.frame.contains(loc) || self.calendar.transitionCoordinator.state != .idle){
+            self.calendar.handleScopeGesture(sender)
+        }else{
+            if(self.calendar.scope == .week && self.tableview.contentOffset.y <= 0) || (self.calendar.scope == .month){
+                self.calendar.handleScopeGesture(sender)
+            }
+        }
     }
 
 }
@@ -164,31 +172,62 @@ extension ViewController : UIScrollViewDelegate{
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.lastContentOffset = scrollView.contentOffset.y
         print("Begin \(scrollView.contentOffset.y)")
+//        self.calendar.handleScopeGesture(scrollView.panGestureRecognizer)
+        print("Begin Drag \(scrollView.panGestureRecognizer.state)")
     }
     
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+//        self.calendar.handleScopeGesture(scrollView.panGestureRecognizer)
+        print("Begin Decelerrate \(scrollView.panGestureRecognizer.state)")
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        self.calendar.handleScopeGesture(scrollView.panGestureRecognizer)
+        print("End decellerate \(scrollView.panGestureRecognizer.state)")
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        self.calendar.handleScopeGesture(scrollView.panGestureRecognizer)
+        print("End Drag \(scrollView.panGestureRecognizer.state)")
+    }
     // while scrolling this delegate is being called so you may now check which direction your scrollView is being scrolled to
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
+//        self.calendar.handleScopeGesture(scrollView.panGestureRecognizer)
+        if( self.calendar.transitionCoordinator.state == .changing){
+            scrollView.contentOffset.y = self.lastContentOffset
+        }
+        print("Dis Scroll \(scrollView.panGestureRecognizer.state)")
         if (self.lastContentOffset < scrollView.contentOffset.y) {
             // moved to top
 //            if(scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.frame.size.height)){
-            if(self.calendar.scope != .week){
-                self.calendar.setScope(.week, animated: true)
-            }
+//            scrollView.contentOffset.y = self.lastContentOffset;
+//            if(self.calendar.scope != .week){
+//                self.calendar.setScope(.week, animated: true)
+//            }
 //            }
         } else if (self.lastContentOffset > scrollView.contentOffset.y) {
             // moved to bottom
-            if(scrollView.contentOffset.y < 0){
-                if(self.calendar.scope != .month){
-                    self.calendar.setScope(.month, animated: true)
-                }
-            }
+//            if(scrollView.contentOffset.y < 0){
+//                if(self.calendar.scope != .month){
+//                    self.calendar.setScope(.month, animated: true)
+//                }
+//            }
         } else {
             // didn't move
 
         }
         
-        print("Scroll \(scrollView.contentOffset.y)")
+//        print("Scroll \(scrollView.contentOffset.y)")
     }
+}
+
+extension ViewController : UIGestureRecognizerDelegate{
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        let bool = otherGestureRecognizer == self.tableview.panGestureRecognizer
+        return bool
+            //&& self.tableview.isDecelerating
+    }
+    
+    
 }
 
