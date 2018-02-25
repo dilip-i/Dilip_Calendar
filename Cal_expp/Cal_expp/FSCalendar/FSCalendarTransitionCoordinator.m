@@ -438,11 +438,11 @@
                         NSDate *fstDateOfweek = [self.calendar getStartDateFromWeekno:((FSCalendarWeekObject*)self.calendar.selectedWeeknos.firstObject).week inYr:((FSCalendarWeekObject*)self.calendar.selectedWeeknos.firstObject).yr];
                         [dates addObject:fstDateOfweek];
                     }
-                    if (self.calendar.today) {
-                        [dates addObject:self.calendar.today];
-                    }
                     if (self.calendar.currentPage) {
                         [dates addObject:self.calendar.currentPage];
+                    }
+                    if (self.calendar.today) {
+                        [dates addObject:self.calendar.today];
                     }
                     dates.copy;
                 });
