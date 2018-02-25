@@ -168,6 +168,11 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarWeekDayTextCaseOptions) {
 @property (strong, nonatomic) UIColor  *selectionColor;
 
 /**
+ * The fill color of the shape for selected week state.
+ */
+@property (strong, nonatomic) UIColor  *wSelectionColor;
+
+/**
  * The fill color of the shape for today.
  */
 @property (strong, nonatomic) UIColor  *todayColor;

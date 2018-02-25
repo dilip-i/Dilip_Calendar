@@ -14,7 +14,7 @@
 
 @interface FSCalendarWCell ()
 
-@property (readonly, nonatomic) UIColor *colorForCellFill;
+@property (readonly, nonatomic) UIColor *colorForWCellFill;
 //@property (readonly, nonatomic) UIColor *colorForTitleLabel;
 @property (readonly, nonatomic) UIColor *colorForCellBorder;
 @property (readonly, nonatomic) UIColor *colorForWUnselectedBar;
@@ -48,6 +48,15 @@
 
 - (void)commonInit
 {
+    CAShapeLayer *shapeLayer;
+    shapeLayer = [CAShapeLayer layer];
+    shapeLayer.backgroundColor = [UIColor clearColor].CGColor;
+    shapeLayer.borderWidth = 1.0;
+    shapeLayer.borderColor = [UIColor clearColor].CGColor;
+    shapeLayer.opacity = 0;
+    [self.contentView.layer insertSublayer:shapeLayer below:_titleLabel.layer];
+    self.shapeLayer = shapeLayer;
+    
     self.clipsToBounds = NO;
     self.contentView.clipsToBounds = NO;
     
@@ -56,6 +65,19 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    CGFloat titleHeight = self.bounds.size.height;
+    CGFloat diameter = MIN(self.bounds.size.height,self.bounds.size.width);
+    diameter = diameter > FSCalendarStandardCellDiameter ? (diameter - (diameter-FSCalendarStandardCellDiameter)*0.5) : diameter;
+    _shapeLayer.frame = CGRectMake((self.bounds.size.width-diameter)/2,
+                                   (titleHeight-diameter)/2,
+                                   diameter,
+                                   diameter);
+    
+    CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
+    if (!CGPathEqualToPath(_shapeLayer.path,path)) {
+        _shapeLayer.path = path;
+    }
 }
 
 - (void)prepareForReuse
@@ -83,6 +105,33 @@
 
 - (void)configureAppearance
 {
+    UIColor *fillColor = self.colorForWCellFill;
+    
+    BOOL shouldHideShapeLayer = !self.selected && !fillColor;
+    
+    if (_shapeLayer.opacity == shouldHideShapeLayer) {
+        _shapeLayer.opacity = !shouldHideShapeLayer;
+    }
+    if (!shouldHideShapeLayer) {
+        
+        CGColorRef cellFillColor = self.colorForWCellFill.CGColor;
+        if (!CGColorEqualToColor(_shapeLayer.fillColor, cellFillColor)) {
+            _shapeLayer.fillColor = cellFillColor;
+        }
+        
+        CGColorRef cellBorderColor = self.colorForCellBorder.CGColor;
+        if (!CGColorEqualToColor(_shapeLayer.strokeColor, cellBorderColor)) {
+            _shapeLayer.strokeColor = cellBorderColor;
+        }
+        
+        CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds
+                                                    cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
+        if (!CGPathEqualToPath(_shapeLayer.path, path)) {
+            _shapeLayer.path = path;
+        }
+        
+    }
+    
     UIColor *textColor = self.colorForTitleLabel;
     if (![textColor isEqual:_titleLabel.textColor]) {
         _titleLabel.textColor = textColor;
@@ -117,7 +166,7 @@
 }
 #pragma mark - Properties
 
-- (UIColor *)colorForCellFill
+- (UIColor *)colorForWCellFill
 {
     if (self.selected) {
         return self.preferredFillSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.backgroundColors];
@@ -167,7 +216,7 @@
 
 - (CGFloat)borderRadius
 {
-    return _preferredBorderRadius >= 0 ? _preferredBorderRadius : _appearance.borderRadius;
+    return 1;
 }
 
 #define OFFSET_PROPERTY(NAME,CAPITAL,ALTERNATIVE) \

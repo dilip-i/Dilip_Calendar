@@ -273,6 +273,19 @@
     return _backgroundColors[@(FSCalendarCellStateSelected)];
 }
 
+-(void)setWSelectionColor:(UIColor *)color{
+    if (color) {
+        _backgroundColors[@(FSCalendarWCellStateSelected)] = color;
+    } else {
+        [_backgroundColors removeObjectForKey:@(FSCalendarWCellStateSelected)];
+    }
+    [self.calendar configureAppearance];
+}
+
+-(UIColor*)wSelectionColor{
+    return _backgroundColors[@(FSCalendarWCellStateSelected)];
+}
+
 - (void)setTodayColor:(UIColor *)todayColor
 {
     if (todayColor) {

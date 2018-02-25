@@ -28,6 +28,8 @@ class ViewController: UIViewController {
         self.calendar.appearance.wBackgroundColor = UIColor.gray;
         self.calendar.wFont = UIFont.systemFont(ofSize: 40);
         self.calendar.weekDayTextFont = UIFont.systemFont(ofSize: 10);
+        self.calendar.appearance.selectionColor = UIColor.orange;
+        self.calendar.appearance.wSelectionColor = UIColor.orange;
 //        self.calendar.wGradientColors = [UIColor.init(red: 0.0/255.0, green: 116.0/255.0, blue: 193.0/255.0, alpha: 1.0).cgColor, UIColor.init(red: 0.0/255.0, green: 108.0/255.0, blue: 179.0/255.0, alpha: 1.0).cgColor]
         
     }

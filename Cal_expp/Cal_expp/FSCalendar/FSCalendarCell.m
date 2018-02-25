@@ -48,14 +48,14 @@
 
 - (void)commonInit
 {   
-//    CAShapeLayer *shapeLayer;
-//    shapeLayer = [CAShapeLayer layer];
-//    shapeLayer.backgroundColor = [UIColor clearColor].CGColor;
-//    shapeLayer.borderWidth = 1.0;
-//    shapeLayer.borderColor = [UIColor clearColor].CGColor;
-//    shapeLayer.opacity = 0;
-//    [self.contentView.layer insertSublayer:shapeLayer below:_titleLabel.layer];
-//    self.shapeLayer = shapeLayer;
+    CAShapeLayer *shapeLayer;
+    shapeLayer = [CAShapeLayer layer];
+    shapeLayer.backgroundColor = [UIColor clearColor].CGColor;
+    shapeLayer.borderWidth = 1.0;
+    shapeLayer.borderColor = [UIColor clearColor].CGColor;
+    shapeLayer.opacity = 0;
+    [self.contentView.layer insertSublayer:shapeLayer below:_titleLabel.layer];
+    self.shapeLayer = shapeLayer;
     
     
     self.clipsToBounds = NO;
@@ -68,18 +68,18 @@
 {
     [super layoutSubviews];
     
-//    CGFloat titleHeight = self.bounds.size.height;
-//    CGFloat diameter = MIN(self.bounds.size.height,self.bounds.size.width);
-//    diameter = diameter > FSCalendarStandardCellDiameter ? (diameter - (diameter-FSCalendarStandardCellDiameter)*0.5) : diameter;
-//    _shapeLayer.frame = CGRectMake((self.bounds.size.width-diameter)/2,
-//                                   (titleHeight-diameter)/2,
-//                                   diameter,
-//                                   diameter);
-//
-//    CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
-//    if (!CGPathEqualToPath(_shapeLayer.path,path)) {
-//        _shapeLayer.path = path;
-//    }
+    CGFloat titleHeight = self.bounds.size.height;
+    CGFloat diameter = MIN(self.bounds.size.height,self.bounds.size.width);
+    diameter = diameter > FSCalendarStandardCellDiameter ? (diameter - (diameter-FSCalendarStandardCellDiameter)*0.5) : diameter;
+    _shapeLayer.frame = CGRectMake((self.bounds.size.width-diameter)/2,
+                                   (titleHeight-diameter)/2,
+                                   diameter,
+                                   diameter);
+
+    CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
+    if (!CGPathEqualToPath(_shapeLayer.path,path)) {
+        _shapeLayer.path = path;
+    }
 
 //    CGFloat eventSize = _shapeLayer.frame.size.height/6.0;
     
@@ -138,30 +138,30 @@
     UIColor *borderColor = self.colorForCellBorder;
     UIColor *fillColor = self.colorForCellFill;
     
-//    BOOL shouldHideShapeLayer = !self.selected && !self.dateIsToday && !borderColor && !fillColor;
-//    
-//    if (_shapeLayer.opacity == shouldHideShapeLayer) {
-//        _shapeLayer.opacity = !shouldHideShapeLayer;
-//    }
-//    if (!shouldHideShapeLayer) {
-//        
-//        CGColorRef cellFillColor = self.colorForCellFill.CGColor;
-//        if (!CGColorEqualToColor(_shapeLayer.fillColor, cellFillColor)) {
-//            _shapeLayer.fillColor = cellFillColor;
-//        }
-//        
-//        CGColorRef cellBorderColor = self.colorForCellBorder.CGColor;
-//        if (!CGColorEqualToColor(_shapeLayer.strokeColor, cellBorderColor)) {
-//            _shapeLayer.strokeColor = cellBorderColor;
-//        }
-//        
-//        CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds
-//                                                    cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
-//        if (!CGPathEqualToPath(_shapeLayer.path, path)) {
-//            _shapeLayer.path = path;
-//        }
-//        
-//    }
+    BOOL shouldHideShapeLayer = !self.selected && !self.dateIsToday && !borderColor && !fillColor;
+    
+    if (_shapeLayer.opacity == shouldHideShapeLayer) {
+        _shapeLayer.opacity = !shouldHideShapeLayer;
+    }
+    if (!shouldHideShapeLayer) {
+        
+        CGColorRef cellFillColor = self.colorForCellFill.CGColor;
+        if (!CGColorEqualToColor(_shapeLayer.fillColor, cellFillColor)) {
+            _shapeLayer.fillColor = cellFillColor;
+        }
+        
+        CGColorRef cellBorderColor = self.colorForCellBorder.CGColor;
+        if (!CGColorEqualToColor(_shapeLayer.strokeColor, cellBorderColor)) {
+            _shapeLayer.strokeColor = cellBorderColor;
+        }
+        
+        CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds
+                                                    cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
+        if (!CGPathEqualToPath(_shapeLayer.path, path)) {
+            _shapeLayer.path = path;
+        }
+        
+    }
     
     _barUnselectedView.backgroundColor = self.colorForUnselectedBar;
     _barSelectedView.backgroundColor = self.colorForSelectedBar;
@@ -178,7 +178,7 @@
         return dictionary[@(FSCalendarCellStateSelected)];
     }
     if (self.dateIsToday && [[dictionary allKeys] containsObject:@(FSCalendarCellStateToday)]) {
-        return dictionary[@(FSCalendarCellStateToday)];
+        return dictionary[@(FSCalendarCellStateNormal)]; //FSCalendarCellStateToday
     }
     if (self.placeholder && [[dictionary allKeys] containsObject:@(FSCalendarCellStatePlaceholder)]) {
         return dictionary[@(FSCalendarCellStatePlaceholder)];
