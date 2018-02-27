@@ -83,6 +83,9 @@
 - (void)prepareForReuse
 {
     [super prepareForReuse];
+    if (self.window) { // Avoid interrupt of navigation transition somehow
+        [CATransaction setDisableActions:YES]; // Avoid blink of shape layer.
+    }
 }
 
 -(void)setSelected:(BOOL)selected{
