@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -19,17 +24,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCG-IU-1Cr">
-                        <rect key="frame" x="0.0" y="0.0" width="50" height="47"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCG-IU-1Cr">
+                        <rect key="frame" x="10" y="0.0" width="30" height="47"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="S0k-D1-ExM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LeT-Nd-2jN">
-                        <rect key="frame" x="2" y="47" width="46" height="3"/>
+                        <rect key="frame" x="5" y="47" width="40" height="3"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h9b-jK-8Eu">
-                                <rect key="frame" x="0.0" y="0.0" width="36" height="3"/>
+                                <rect key="frame" x="0.0" y="0.0" width="30" height="3"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
@@ -37,6 +45,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="3" id="7xJ-3q-uvh"/>
                             <constraint firstAttribute="trailing" secondItem="h9b-jK-8Eu" secondAttribute="trailing" constant="10" id="CEP-kk-wMy"/>
+                            <constraint firstAttribute="width" constant="40" id="Hid-tp-Qwm"/>
                             <constraint firstItem="h9b-jK-8Eu" firstAttribute="top" secondItem="LeT-Nd-2jN" secondAttribute="top" id="PAY-Dk-LYd"/>
                             <constraint firstItem="h9b-jK-8Eu" firstAttribute="leading" secondItem="LeT-Nd-2jN" secondAttribute="leading" id="bAA-fJ-JpZ"/>
                             <constraint firstAttribute="bottom" secondItem="h9b-jK-8Eu" secondAttribute="bottom" id="peO-LG-b2M"/>
@@ -46,13 +55,11 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="LeT-Nd-2jN" secondAttribute="trailing" constant="2" id="0c2-fs-0jA"/>
                 <constraint firstAttribute="bottom" secondItem="LeT-Nd-2jN" secondAttribute="bottom" id="5Hr-fx-mEM"/>
-                <constraint firstItem="OCG-IU-1Cr" firstAttribute="leading" secondItem="L43-5D-Y3g" secondAttribute="leading" id="CYJ-ec-bqt"/>
                 <constraint firstItem="LeT-Nd-2jN" firstAttribute="top" secondItem="OCG-IU-1Cr" secondAttribute="bottom" id="Pdd-jx-vpy"/>
                 <constraint firstItem="OCG-IU-1Cr" firstAttribute="top" secondItem="L43-5D-Y3g" secondAttribute="top" id="Qnq-RJ-3L6"/>
-                <constraint firstItem="LeT-Nd-2jN" firstAttribute="leading" secondItem="L43-5D-Y3g" secondAttribute="leading" constant="2" id="bg3-ie-WdP"/>
-                <constraint firstAttribute="trailing" secondItem="OCG-IU-1Cr" secondAttribute="trailing" id="e1a-F3-0BD"/>
+                <constraint firstItem="OCG-IU-1Cr" firstAttribute="centerX" secondItem="L43-5D-Y3g" secondAttribute="centerX" id="Uwm-HS-oQu"/>
+                <constraint firstItem="LeT-Nd-2jN" firstAttribute="centerX" secondItem="L43-5D-Y3g" secondAttribute="centerX" id="eHa-cO-gBi"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="8Ya-jL-arI"/>
             <connections>

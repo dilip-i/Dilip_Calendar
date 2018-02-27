@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -19,17 +24,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2y-c0-09x">
-                        <rect key="frame" x="0.0" y="0.0" width="50" height="47"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2y-c0-09x">
+                        <rect key="frame" x="10" y="0.0" width="30" height="47"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="xrg-S4-csj"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kWu-UL-spF">
-                        <rect key="frame" x="2" y="48" width="46" height="5"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWu-UL-spF">
+                        <rect key="frame" x="7.5" y="47" width="35" height="3"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F7F-XC-j45">
-                                <rect key="frame" x="0.0" y="0.0" width="27" height="3"/>
+                                <rect key="frame" x="0.0" y="0.0" width="16" height="3"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
@@ -40,6 +48,7 @@
                             <constraint firstAttribute="bottom" secondItem="F7F-XC-j45" secondAttribute="bottom" id="S3E-Da-WMF"/>
                             <constraint firstItem="F7F-XC-j45" firstAttribute="top" secondItem="kWu-UL-spF" secondAttribute="top" id="kul-1A-p0t"/>
                             <constraint firstAttribute="height" constant="3" id="trt-Ux-pSE"/>
+                            <constraint firstAttribute="width" constant="35" id="wAm-IP-mYK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Qcz-cr-m8K"/>
                     </view>
@@ -47,11 +56,9 @@
             </view>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="kWu-UL-spF" secondAttribute="bottom" id="93r-Jp-hId"/>
+                <constraint firstItem="D2y-c0-09x" firstAttribute="centerX" secondItem="B6O-xw-6Cb" secondAttribute="centerX" id="BOt-75-bIw"/>
                 <constraint firstItem="kWu-UL-spF" firstAttribute="top" secondItem="D2y-c0-09x" secondAttribute="bottom" id="EMy-v1-4ef"/>
-                <constraint firstItem="kWu-UL-spF" firstAttribute="leading" secondItem="B6O-xw-6Cb" secondAttribute="leading" constant="2" id="FaH-MV-4kf"/>
-                <constraint firstAttribute="trailing" secondItem="kWu-UL-spF" secondAttribute="trailing" constant="2" id="Iej-fW-3ki"/>
-                <constraint firstAttribute="trailing" secondItem="D2y-c0-09x" secondAttribute="trailing" id="cEr-g7-nsF"/>
-                <constraint firstItem="D2y-c0-09x" firstAttribute="leading" secondItem="B6O-xw-6Cb" secondAttribute="leading" id="naB-Kp-Wfy"/>
+                <constraint firstItem="kWu-UL-spF" firstAttribute="centerX" secondItem="B6O-xw-6Cb" secondAttribute="centerX" id="jPv-U0-8XK"/>
                 <constraint firstItem="D2y-c0-09x" firstAttribute="top" secondItem="B6O-xw-6Cb" secondAttribute="top" id="q3o-Ku-fTS"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Ybs-Xm-wjG"/>
