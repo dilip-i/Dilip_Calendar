@@ -629,7 +629,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         //Find last Date of week no
         NSDate *eDate = [self.gregorian dateByAddingUnit:NSCalendarUnitDay value:6 toDate:sDate options:0];
         
-        [self.delegateProxy calendar:self didSelectWeekno:weekno.week :sDate :eDate atMonthPosition:nil];
+//        [self.delegateProxy calendar:self didSelectWeekno:weekno.week :sDate :eDate atMonthPosition:nil]; // Its already called in "selectWeekno"
         return ;
     }
     NSDate *selectedDate = [self.calculator dateForIndexPath:indexPath];
@@ -737,7 +737,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         if (![self.gregorian isDate:currentPage equalToDate:_currentPage toUnitGranularity:NSCalendarUnitMonth]) {
             [self willChangeValueForKey:@"currentPage"];
             _currentPage = currentPage;
-            [self.delegateProxy calendarCurrentPageDidChange:self];
+            [self.delegateProxy calendarCurrentPageDidChange:self ByScroll:true];
             [self didChangeValueForKey:@"currentPage"];
         }
         
@@ -795,7 +795,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         NSDate *lastPage = _currentPage;
         [self willChangeValueForKey:@"currentPage"];
         _currentPage = targetPage;
-        [self.delegateProxy calendarCurrentPageDidChange:self];
+        [self.delegateProxy calendarCurrentPageDidChange:self ByScroll:true];
         if (_placeholderType != FSCalendarPlaceholderTypeFillSixRows) {
             [self.transitionCoordinator performBoundingRectTransitionFromMonth:lastPage toMonth:_currentPage duration:0.25];
         }
@@ -1417,7 +1417,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         [cell performSelecting];
         [self enqueueSelectedDate:targetDate];
         [self selectCounterpartDate:targetDate];
-        
+        [self.delegateProxy calendar:self didSelectDate:targetDate atMonthPosition:monthPosition];
     } else if (![_collectionView.indexPathsForSelectedItems containsObject:targetIndexPath]) {
         [_collectionView selectItemAtIndexPath:targetIndexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     }
@@ -1455,6 +1455,8 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         wCell.selected = YES;
 //        [self enqueueSelectedDate:targetDate];
 //        [self selectCounterpartDate:targetDate];
+        
+        [self.delegateProxy calendar:self didSelectWeekno:no :targetDate :[self.gregorian dateByAddingUnit:NSCalendarUnitDay value:6 toDate:targetDate options:0] atMonthPosition:nil];
         
     }
     
@@ -1532,7 +1534,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
                 }
             }
             if (self.hasValidateVisibleLayout) {
-                [self.delegateProxy calendarCurrentPageDidChange:self];
+                [self.delegateProxy calendarCurrentPageDidChange:self ByScroll:false];
                 if (_placeholderType != FSCalendarPlaceholderTypeFillSixRows && self.transitionCoordinator.state == FSCalendarTransitionStateIdle) {
                     [self.transitionCoordinator performBoundingRectTransitionFromMonth:lastPage toMonth:_currentPage duration:0.33];
                 }

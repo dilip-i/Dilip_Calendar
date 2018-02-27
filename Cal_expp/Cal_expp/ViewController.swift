@@ -45,8 +45,8 @@ class ViewController: UIViewController {
     }()
     
     @IBAction func btnclk(sender:AnyObject){
-//        self.calendar.select(Calendar.current.date(byAdding: .day, value: 100, to: Date()))
-        self.calendar.selectWeekno(17, inYr: 2018, scrollToWeekno: true);
+        self.calendar.select(Calendar.current.date(byAdding: .day, value: 100, to: Date()))
+//        self.calendar.selectWeekno(17, inYr: 2018, scrollToWeekno: true);
     }
     
     @objc func handleScopeGesture(sender:UIPanGestureRecognizer){
@@ -65,23 +65,25 @@ class ViewController: UIViewController {
 
 extension ViewController : FSCalendarDelegate {
   
-    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar, byScroll: Bool) {
         print("change page to \(self.formatter.string(from: calendar.currentPage))")
         calendar.wCollectionView.reloadData()
-        if(calendar.scope == .month){
-            calendar.select(calendar.currentPage)
-        }else{
-            let weekObj = calendar.getweek(fromStart: calendar.currentPage);
-            print("Week no = \(weekObj.week)")
-            calendar.selectWeekno(weekObj.week, inYr: weekObj.yr, scrollToWeekno: false)
+        if(byScroll){
+            if(calendar.scope == .month){
+                calendar.select(calendar.currentPage)
+            }else{
+                let weekObj = calendar.getweek(fromStart: calendar.currentPage);
+                print("Week no = \(weekObj.week)")
+                calendar.selectWeekno(weekObj.week, inYr: weekObj.yr, scrollToWeekno: false)
+            }
         }
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("calendar did select date \(self.formatter.string(from: date))")
-        if monthPosition == .previous || monthPosition == .next {
-            calendar.setCurrentPage(date, animated: true)
-        }
+//        if monthPosition == .previous || monthPosition == .next {
+            calendar.select(date)
+//        }
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
