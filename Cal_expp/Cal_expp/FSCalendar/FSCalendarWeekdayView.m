@@ -110,6 +110,8 @@
 
 - (void)configureAppearance
 {
+    NSString * language = [[NSLocale preferredLanguages] firstObject];
+    
     BOOL useVeryShortWeekdaySymbols = (self.calendar.appearance.caseOptions & (15<<4) ) == FSCalendarCaseOptionsWeekdayUsesSingleUpperCase;
     NSArray *weekdaySymbols = useVeryShortWeekdaySymbols ? self.calendar.gregorian.veryShortStandaloneWeekdaySymbols : self.calendar.gregorian.shortStandaloneWeekdaySymbols;
     BOOL useDefaultWeekdayCase = self.calendar.appearance.caseOptions  == FSCalendarCaseOptionsWeekdayUsesDefaultCase;
@@ -125,7 +127,7 @@
     UILabel *label = [self.weekdayPointers pointerAtIndex:0];
     label.font = self.calendar.appearance.wFont;
     label.textColor = self.calendar.appearance.wColor;
-    label.text = useDefaultWeekdayCase ? @"w" : @"W";
+    label.text = useDefaultWeekdayCase ? ([language isEqualToString:@"sv"] ? @"v" : @"w") : ([language isEqualToString: @"sv" ] ? @"V" : @"W");
     label.backgroundColor = [UIColor clearColor];
 
 }

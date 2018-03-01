@@ -81,9 +81,9 @@ extension ViewController : FSCalendarDelegate {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("calendar did select date \(self.formatter.string(from: date))")
-//        if monthPosition == .previous || monthPosition == .next {
+        if monthPosition == .previous || monthPosition == .next {
             calendar.select(date)
-//        }
+        }
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -126,6 +126,10 @@ extension ViewController : FSCalendarDataSource {
                                           size: 10)
         }
         cell.progressBar = 0.1
+        
+        if cell.monthPosition == .previous || cell.monthPosition == .next {
+            cell.colorForTitleLabel = UIColor.lightGray
+        }
     }
     
     func calendar(_ calendar: FSCalendar, cellFor wCell: FSCalendarWCell, week weekno: Int, inyr yr: Int) {
