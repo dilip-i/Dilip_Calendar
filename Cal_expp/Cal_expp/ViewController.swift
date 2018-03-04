@@ -84,6 +84,14 @@ extension ViewController : FSCalendarDelegate {
         if monthPosition == .previous || monthPosition == .next {
             calendar.select(date)
         }
+        
+        if let cell = calendar.cell(for: date, at: monthPosition){
+            cell.colorForTitleLabel = UIColor.blue
+            cell.colorForSelectedTitleLabel = UIColor.yellow
+            cell.colorForSelectedBar = UIColor.red
+            cell.colorForUnselectedBar = UIColor.lightGray
+            cell.progressBar = 0.5
+        }
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {

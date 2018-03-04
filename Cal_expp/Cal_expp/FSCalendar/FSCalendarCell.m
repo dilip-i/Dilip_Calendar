@@ -126,10 +126,21 @@
 
 - (void)configureAppearance
 {
-    UIColor *textColor = self.colorForTitleLabel;
-    if (![textColor isEqual:_titleLabel.textColor]) {
-        _titleLabel.textColor = textColor;
+    if(self.isSelected){
+        UIColor *textColor = self.colorForSelectedTitleLabel;
+        if (![textColor isEqual:_titleLabel.textColor]) {
+            _titleLabel.textColor = textColor;
+        }
+    }else{
+        UIColor *textColor = self.colorForTitleLabel;
+        if (![textColor isEqual:_titleLabel.textColor]) {
+            _titleLabel.textColor = textColor;
+        }
     }
+//    UIColor *textColor = self.colorForTitleLabel;
+//    if (![textColor isEqual:_titleLabel.textColor]) {
+//        _titleLabel.textColor = textColor;
+//    }
 //    UIFont *titleFont = self.calendar.appearance.titleFont;
 //    if (![titleFont isEqual:_titleLabel.font]) {
 //        _titleLabel.font = titleFont;
@@ -200,19 +211,30 @@
 }
 
 -(void)setColorForTitleLabel:(UIColor *)colorForTitleLabel{
-    if(![_preferredTitleDefaultColor isEqual:colorForTitleLabel]){
-            _preferredTitleDefaultColor = colorForTitleLabel;
+    if(![_preferredTitleColor isEqual:colorForTitleLabel]){
+            _preferredTitleColor = colorForTitleLabel;
         [self configureAppearance];
     }
 }
 
 - (UIColor *)colorForTitleLabel
 {
-    if (self.selected) {
-        return self.preferredTitleSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
-    }
+//    if (self.selected) {
+//        return self.preferredTitleSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
+//    }
 //    return self.preferredTitleDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
-    return _preferredTitleDefaultColor;
+    return _preferredTitleColor;
+}
+
+-(void)setColorForSelectedTitleLabel:(UIColor *)colorForSelectedTitleLabel{
+    if(![_preferredTitleSelectedColor isEqual:colorForSelectedTitleLabel]){
+        _preferredTitleSelectedColor = colorForSelectedTitleLabel;
+        [self configureAppearance];
+    }
+}
+
+-(UIColor*)colorForSelectedTitleLabel{
+    return _preferredTitleSelectedColor;
 }
 
 - (UIColor *)colorForCellBorder

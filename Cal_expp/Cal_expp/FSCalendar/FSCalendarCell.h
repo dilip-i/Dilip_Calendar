@@ -56,11 +56,15 @@ typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
 @property (assign, nonatomic) CGPoint preferredTitleOffset;
 
 //Added by Dilip
+@property (strong, nonatomic) UIColor *preferredTitleColor;
+@property (strong, nonatomic) UIColor *preferredTitleSelectedColor;
+
 @property (assign, nonatomic) UIColor *preferredBarUnselectedColor;
 @property (assign, nonatomic) UIColor *preferredBarSelectedColor;
 @property (assign, nonatomic) UIColor *preferredBarNoWorkColor;
 
 @property (strong, nonatomic) UIColor *colorForTitleLabel;
+@property (strong, nonatomic) UIColor *colorForSelectedTitleLabel;
 @property (assign, nonatomic) UIColor *colorForUnselectedBar;
 @property (assign, nonatomic) UIColor *colorForSelectedBar;
 
